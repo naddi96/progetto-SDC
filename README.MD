@@ -1,7 +1,6 @@
 PROGETTO SDC 2020 
 Gestione autorizzazioni Informazioni Covid-19
-
-
+0
 Progetto
 Si vuole aggiungere sicurezza e controllo ad un sistema di aggiornamento e  ricezione informazioni, relative al propagarsi del covid-19 nel territorio nazionale.
 
@@ -29,26 +28,34 @@ Gli accessi protetti, sono loggati su report.
 I dati di inserimento sono gestiti con funzione di Update attraverso il metodo POST-7
 La funzione di inserimento è soggetta a regole /permessi per i soli profili di admin in particolare:
 
-Il governatore regionale può gestire i soli dati della regione che amministra
+Il governatore regionale può gestire i soli dati della regione che amministra.
+L’amministratore di area geografica può gestire tutti i dati delle regioni appartenenti a quell'area geografica.
+L’amministratore governativo nazionale può gestire tutti i dati.
 
-
-I dati da aggiornare saranno i seguenti:
-
-
-Totale infetti 
-( eventualmente anche i nuovi infetti)
-Totale morti
-Totale guariti
-...
-
-
+I dati pubblici sono relativi ai singoli dati regionali.
+..
 Se durante aggiornamento un dato supera una soglia , viene aggiunta una riga visibile al solo amministratore governativo ( in una pagina di riepilogo di allarmi  e tale info sarà loggata anche su report).
 
 Se il valore infetti supera una soglia definita ( sul file.ars o direttamente sul codice lisp) verrà utilizzata la funzione CAT con ADD per aggiungere all’insieme una notifica rispetto alla specifica regione; tale notifica sarà disponibile alla lettura per il solo profilo di amministratore governativo (valutare se includere un limite temporale con timestamp).
 
-2 modalità di switch
+Si prevedono 2 modalità di esecuzione attraverso uno  switch:
 Passante ( libera da regole)
 Controllata ( con le regole di accesso)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  
