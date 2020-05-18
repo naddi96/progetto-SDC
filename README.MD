@@ -6,17 +6,17 @@ Si vuole aggiungere sicurezza e controllo ad un sistema di aggiornamento e  rice
 
 Per ogni regione il sistema gestisce le  informazioni alla giornata attraverso 
 Inserimento dei dati relativi al numero di: 
--decessi
--infetti 
--guariti
--Visualizzazione dei dati inseriti
+- decessi
+- infetti 
+- guariti
+- Visualizzazione dei dati inseriti
 
 
 ### Le regioni sono aggregate per area geografica: 
 
--Nord 
--Centro
--Sud.
+- Nord 
+- Centro
+- Sud.
 
 
 
@@ -24,9 +24,9 @@ Inserimento dei dati relativi al numero di:
 
 Si vuole aggiungere controlli autorizzativi per ogni regione e per area geografica ipotizzando i seguenti profili:
 
--Governatore Regionale: accesso e inserimento ai dati della singola regione
--Admin-Area-Geografica: accesso e inserimento a tutti i dati dell’area geografica
--Admin-Governativo: accesso e inserimento a tutti i dati
+- Governatore Regionale: accesso e inserimento ai dati della singola regione
+- Admin-Area-Geografica: accesso e inserimento a tutti i dati dell’area geografica
+- Admin-Governativo: accesso e inserimento a tutti i dati
 
 La funzione di  login è completata con la creazione ed associazione di un cookie per ogni utenza.
 L’accesso alle pagine di competenza è controllato dalle  Access Rules & Validation Rules.
@@ -67,7 +67,7 @@ Si prevedono 2 modalità di esecuzione attraverso uno  switch:
 
 
  
-Implementazione: 
+## Implementazione: 
 1 cartella per ogni regione, 
 Nel file ars 
 Un insieme con tutti
