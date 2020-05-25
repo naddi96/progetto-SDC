@@ -16,7 +16,7 @@ def append_post_tofile(path):
     guariti=request.values["guariti"]
     f=open("regioni/"+path+"/dati_covid19.csv","a")
     f.write(morti+","+infetti+","+guariti+"\n")
-    return "LA richiesta è stata memorizzata"
+    return "La richiesta è stata memorizzata"
     
 
 
