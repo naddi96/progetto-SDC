@@ -22,7 +22,7 @@
 <center>
   <div class="container">
     <span>
-  <form id="contact" action="" method="post">
+  <form id="contact" action="/login/regione" method="post">
     <center><h3>Login</h3>
   </center>
     <fieldset><p>Username</p>
@@ -32,10 +32,10 @@
       <input name="password" placeholder="Password" type="text" tabindex="2" required>
     </fieldset>
     <fieldset><p>Seleziona tipo account</p>
-      <select name="accountType" id="account" required>
-        <option value=1>Regionale</option>
-        <option value=2>Zona Regionale</option>
-        <option value=3>Statale</option>
+      <select name="tipo" id="account" required>
+        <option value=Campania>Campania</option>
+        <option value=Lombardia>Lombardia</option>
+        <option value=Lazio>Lazio</option>
       </select>
     </fieldset>
     <fieldset>
@@ -51,13 +51,6 @@
   </center>
 
 
-
-<script>
-  var url=window.location.href.split("/")
-  var regione =url[url.length-2]
-  var form=document.getElementById("contact")
-  form.setAttribute("action","/submit/"+regione)
-</script>
 
 </body>
 
