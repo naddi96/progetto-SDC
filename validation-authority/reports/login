@@ -1,0 +1,9 @@
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=asas|
+CAT{il login di asas non è stato completato con successo}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=asas|
+CAT{il login di asas non è stato completato con successo}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=asas|
+CAT{il login di utente non è stato completato con successo}|
+

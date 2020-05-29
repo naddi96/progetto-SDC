@@ -1,0 +1,72 @@
+DEFINE ipset serverip = { *.*.*.*:*, 127.0.0.1:8000 };
+define set utenti_loggati = { };
+
+define urlset url_login_set = { /login };
+
+define set insieme1 = { };
+define set insieme2 = { };
+
+
+
+define urlset area_nord = { /regione/Piemenonte/*,/regione/Lombardia/* };
+
+define urlset area_sud = { /regione/Sicilia/*,/regione/Campania/* };
+
+define urlset area_centro = { /regione/Lazio/* , /regione/Abruzzo/* , /regione/Molise/* };
+
+define urlset admin_nazionale = { /regione/Lazio/* , /regione/Abruzzo/* , /regione/Molise/*, /regione/Sicilia/*,/regione/Campania/*,/regione/Piemenonte/*,/regione/Lombardia/* };
+
+define urlset Piemenonte ={ /regione/Piemenonte/* };
+define urlset Sicilia = { /regione/Sicilia/* };
+define urlset Lazio = { /regione/Lazio/* };
+
+define urlset tutti_dati = { /regione/*/dati/* };
+
+
+define urlset login_page = { /login/*/*/* };
+
+
+define urlset login_Admin_post = { /login/admin };
+
+
+define set session_admin = {};
+define set session_area_nord = {};
+define set session_area_sud = {};
+define set session_area_centro = {};
+
+define set session_Sicilia = {};
+define set session_Lazio = {};
+define set session_Piemonte = {};
+
+
+define AR "passa login page"
+    CONDITION
+        http.url is in login_page
+    ACTION
+        tcp.redirect "127.0.0.1:5000"
+;
+
+DEFINE VR "verifica login admin nazionale"
+       CONDITION
+              obs.event is net.send
+              http.url is in login_Admin_post
+       VAR
+              sessione = net.sesid
+              utente = http.data["username"]
+       ACTION 
+              report login {http.uri, http.data["username"]}
+       NEXT (
+              exists http.answer.cookie["admin"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["admin"]}}
+              add http.answer.cookie["admin"] to set session_admin 
+       OR     
+              not exists http.answer.cookie["admin"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+       )
+;

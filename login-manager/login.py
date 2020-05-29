@@ -29,7 +29,6 @@ def check_login(db_json,req):
     password=req['password']
     nome=req["username"]
     for utente in db_json:
-        utente[tipo]
         if (utente[tipo]["nome"] ==nome and  utente[tipo]["pass"]==password ):
             return True
     return False        
@@ -37,9 +36,9 @@ def check_login(db_json,req):
 
 
 @app.route('/login/admin',methods=["POST"])
-def admin(file):
+def admin():
     try:
-        if check_login(db_regione,dict(request.values)):
+        if check_login(db_admin,dict(request.values)):
             cookie=randString(100)
             resp = make_response("login completato adesso puoi accedere a tutto")
             resp.set_cookie('admin', cookie)
@@ -52,7 +51,7 @@ def admin(file):
 @app.route('/login/area',methods=["POST"])
 def area():
     try:
-        if check_login(db_regione,dict(request.values)):
+        if check_login(db_area,dict(request.values)):
             cookie=randString(100)
             resp = make_response("login completato adesso puoi accedere nella tua area regionale")
             resp.set_cookie('area', cookie)
