@@ -9,13 +9,12 @@ import string
 def randString(length):
     #put your letters in the following string
     
-    return ''.join(random.choices(string.ascii_lowercase+ string.ascii_uppercase + string.digits, k=length))
+    return ''.join(random.choices(string.digits, k=length))
 
 
 db_regione = json.load(open("admin-regione.json","r"))
 db_area = json.load(open("admin-area.json","r"))
 db_admin = json.load(open("admin.json","r"))
-
 
 
 @app.route('/login/<path:path>')

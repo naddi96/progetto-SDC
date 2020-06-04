@@ -1,9 +1,21 @@
-VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=asas|
-CAT{il login di asas non è stato completato con successo}|
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_QUERY[username]=|
+CAT{il login di dfdsf non è stato completato con successo}|
 
-VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=asas|
-CAT{il login di asas non è stato completato con successo}|
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successoj10PUoWXuVlfWP9xtkZD4DMGgq7ZHjvUHYELCFMAyBUSMUNVjI1fagxLHhjtBKe6RF7B7yub4ZNeA2f7TFOKKrFBXsBHOE1RKgbf; Path}|
 
-VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=asas|
-CAT{il login di utente non è stato completato con successo}|
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successolHYcHPjTsrPVts4QvLvinetlz5s79CpVjxjzhJWRs9vaIgDXI3os5zeXUz5VizWSp8sY2QBXZWhdJsq9pFRVwZOHJhPzQIgwjchU; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successodulZVGaAi2gM9WMYidUDz6h3Ds3mkCDAjv1VW7Ut03VanYkQqqWRUK3473V4YDz9ZlfKFgl4NXes53Yp6bhdI66H2p4C3XomoVad; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successogFFR1mpxsvMHCFPk9yNW972tJmfQf40HDl2qWEn512mDVL80BwOSZp9au9XYErglRabKpmZJgvDGrekqFNRvs48xrExnUTw6MaZQ; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo1YHRVmqHu5lDEdED3HjYrAlGuMWevwQsRlSHVAbVlek19Zkkt3k87X1J5ABHh6t093hJpLGOz6QhdwVEZvpeX2S3sgNC48iNlYGL; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo5900465257519234110009180412127055938724327154458573562088872121635004851284760035938126900588990670; Path}|
 
