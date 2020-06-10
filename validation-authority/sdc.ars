@@ -18,7 +18,7 @@ define urlset area_centro = { /regione/Lazio/* , /regione/Abruzzo/* , /regione/M
 define urlset admin_nazionale = { /regione/Lazio/* , /regione/Abruzzo/* , /regione/Molise/*, /regione/Sicilia/*,/regione/Campania/*,/regione/Piemenonte/*,/regione/Lombardia/* };
 *)
 
-define urlset admin_nazionale ={ /regione/*/*/*/*/*, /regione/Campania/*};
+define urlset admin_nazionale ={ /regione/*/*/*/*/*};
 
 
 define urlset Piemenonte ={ /regione/Piemenonte/* };
@@ -34,6 +34,7 @@ define urlset login_page = { /login/*/*/* };
 define urlset login_Admin_post = { /login/admin };
 
 
+
 define set session_admin = { };
 
 
@@ -45,16 +46,69 @@ define set session_Sicilia = { };
 define set session_Lazio = { };
 define set session_Piemonte = { };
 
+define set pubblica_dati = { };
+define urlset PubblicaDati = { /PubblicaDati };
 
+(*/protezione bruteforce*)
+define urlset login_post = { /login/admin, /login/regione, /login/area };
+define set livello1 = { };
+define set livello2 = { };
+define set livello3 = { };
+define set livello4 = { };
+define set livello5 = { };
+
+define AR "blocca ip"
+       CONDITION
+              net.ipsrc is in livello5 ":.*$" ""
+       ACTION
+              answer "ip stato bloccato"
+;
+(*protezione bruteforce/*)
+
+
+
+
+
+
+(*rendi dati pubblici*)
+define AR "passa i dati se resi pubblici"
+       CONDITION
+              http.url is in tutti_dati
+              CAT{"1234"} is in pubblica_dati
+       ACTION
+              tcp.redirect "127.0.0.1:5001"
+;
+
+define AR "pubblica dati"
+       CONDITION
+              http.url is in PubblicaDati
+              http.cookie['admin'] is in session_admin
+       ACTION
+              answer "Hai reso pubblici i dati"
+;
+
+
+define VR "pubblica dati VR"
+(*aggiungiamo 1234 all insieme per rendere i dati pubblici per un ora*)
+       CONDITION
+              http.url is in PubblicaDati
+              http.cookie['admin'] is in session_admin
+       ACTION
+              
+              add "1234" to set pubblica_dati 3600
+       ;
+
+(*rendi dati pubblici end*)
+
+
+
+(*accesso login admin*)
 define AR "passa login page"
     CONDITION
         http.url is in login_page
     ACTION
         tcp.redirect "127.0.0.1:5000"
 ;
-
-
-
 
 define AR "passa admin"
     CONDITION
@@ -63,8 +117,6 @@ define AR "passa admin"
     ACTION
         tcp.redirect "127.0.0.1:5001"
 ;
-
-
 
 DEFINE VR "verifica login admin nazionale"
        CONDITION
@@ -81,7 +133,7 @@ DEFINE VR "verifica login admin nazionale"
               net.sesid is sessione
        ACTION
               report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["admin"]}}
-              add http.answer.cookie["admin"] to set session_admin 
+              add http.answer.cookie["admin"] to set session_admin ";.*$" ""
        OR     
               not exists http.answer.cookie["admin"]
               obs.event is net.recv
@@ -90,3 +142,130 @@ DEFINE VR "verifica login admin nazionale"
               report login {cat {"il login di ", utente, " non è stato completato con successo"}}
        )
 ;
+
+
+(*accesso login admin*)
+
+
+
+(*valori critici va admin nazionale*)
+define set valori_critici={ "60","61","62","63","64","65","66","67","68","69","70" };
+define urlset admin_nazionale_submit = { /regione/submit/* };
+DEFINE VR "verifica e memorizza livello di criticita"
+       CONDITION
+              http.cookie['admin'] is in session_admin
+              http.url is in admin_nazionale_submit
+              http.data["percentuale"] is in valori_critici
+       ACTION
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into vatable (percentuale,regione) values ($0,$1)",
+              { http.data["percentuale"],http.uri })
+
+;
+(*/protezione bruteforce*)
+define VR "login bruteforce livello5 blocco ip"
+       CONDITION 
+              http.url is in login_post
+              not exists http.answer.cookie["admin"]
+              CAT{net.ipsrc":.*$" ""} is in livello4
+       ACTION
+              add net.ipsrc to set livello5  ":.*$" ""
+       OR
+              http.url is in login_post
+              not exists http.answer.cookie["regione"]
+              CAT{net.ipsrc":.*$" ""} is in livello4
+       ACTION
+              add net.ipsrc to set livello5 ":.*$" ""
+       OR
+              http.url is in login_post
+              not exists http.answer.cookie["area"]
+              CAT{net.ipsrc":.*$" ""} is in  livello4
+       ACTION
+              add net.ipsrc to set livello5 ":.*$" ""
+;
+
+
+define VR "login bruteforce livello4"
+       CONDITION 
+              http.url is in login_post
+              not exists http.answer.cookie["admin"]
+              CAT{net.ipsrc":.*$" ""} is in livello3
+       ACTION
+              add net.ipsrc to set livello4 10 ":.*$" ""
+       OR
+              http.url is in login_post
+              not exists http.answer.cookie["regione"]
+              CAT{net.ipsrc":.*$" ""} is in livello3
+       ACTION
+              add net.ipsrc to set livello4 10 ":.*$" ""
+       OR
+              http.url is in login_post
+              not exists http.answer.cookie["area"]
+              CAT{net.ipsrc":.*$" ""} is in livello3
+       ACTION
+              add net.ipsrc to set livello4 10 ":.*$" ""
+;
+
+define VR "login bruteforce livello3"
+       CONDITION 
+              http.url is in login_post
+              not exists http.answer.cookie["admin"]
+              CAT{net.ipsrc":.*$" ""} is in livello2
+       ACTION
+              add net.ipsrc to set livello3 10 ":.*$" ""
+       OR
+              http.url is in login_post
+              not exists http.answer.cookie["regione"]
+              CAT{net.ipsrc":.*$" ""} is in livello2 
+       ACTION
+              add net.ipsrc to set livello3 10 ":.*$" ""
+       OR
+              http.url is in login_post
+              not exists http.answer.cookie["area"]
+              CAT{net.ipsrc":.*$" ""} is in livello2 
+       ACTION
+              add net.ipsrc to set livello3 10 ":.*$" ""
+;
+
+
+define VR "login bruteforce livello2"
+       CONDITION 
+              http.url is in login_post
+              not exists http.answer.cookie["admin"]
+              CAT{net.ipsrc":.*$" ""} is in livello1 
+       ACTION
+              add net.ipsrc to set livello2 10 ":.*$" ""
+       OR
+              http.url is in login_post
+              not exists http.answer.cookie["regione"]
+              CAT{net.ipsrc":.*$" ""} is in livello1 
+       ACTION
+              add net.ipsrc to set livello2 10 ":.*$" ""
+       OR
+              http.url is in login_post
+              not exists http.answer.cookie["area"]
+              CAT{net.ipsrc":.*$" ""} is in livello1 
+       ACTION
+              add net.ipsrc to set livello2 10 ":.*$" ""
+;
+
+define VR "login bruteforce livello1"
+
+       CONDITION 
+              http.url is in login_post
+              not exists http.answer.cookie["admin"]
+       ACTION
+              add net.ipsrc to set livello1 10 ":.*$" ""
+       OR
+              http.url is in login_post
+              not exists http.answer.cookie["regione"]
+       ACTION
+              add net.ipsrc to set livello1 10 ":.*$" ""     
+       OR
+              http.url is in login_post
+              not exists http.answer.cookie["area"]
+       ACTION
+              add net.ipsrc to set livello1 10 ":.*$" ""
+
+;
+(*protezione bruteforce/*)

@@ -36,6 +36,12 @@
     <fieldset><p>Totale guariti</p>
       <input name="guariti" placeholder="inserisci totale guariti" type="tel" tabindex="3" required>
     </fieldset>
+    <fieldset><p>percentuale</p>
+      <input name="percentuale" placeholder="inserisci percentuale" type="tel" tabindex="3" required>
+    </fieldset>
+
+
+
     <fieldset>
       <button name="submit" type="submit" id="contact-submit" data-submit="...Sending">Submit</button>
     </fieldset>
@@ -46,9 +52,9 @@
 
 <script>
   var url=window.location.href.split("/")
-  var regione =url[url.length-2]
+  var regione =url[url.length-3]
   var form=document.getElementById("contact")
-  form.setAttribute("action","/submit/"+regione)
+  form.setAttribute("action","/regione/submit/"+regione)
 </script>
 
 </body>

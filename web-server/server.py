@@ -9,7 +9,7 @@ def server(path):
     return send_from_directory("regioni/",path)
     
 
-@app.route('/submit/<path:path>',methods=["POST"])
+@app.route('/regione/submit/<path:path>',methods=["POST"])
 def append_post_tofile(path):
     morti=request.values["morti"]
     infetti=request.values["infetti"]
