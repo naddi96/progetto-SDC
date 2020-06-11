@@ -568,3 +568,78 @@ CAT{il login di pupprielloB è stato completato con successo25712837489157759641
 VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=|
 CAT{il login di  non è stato completato con successo}|
 
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo9646506855848998949133222114022406563497735025040926923052719058574897678302690085760077120532203781; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo0487368816829371367397945442615359571879079176515269671207588617996090680225193575050368366589254370; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo0198535116776898475289524144717818639142681385684891155631864819896977579387264761936707626525990248; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo9186177278771554138621396008943937307972205712226389967160027752807298108697702592873929058127750439; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo8973443017610034176255619766322148281066374719426668083336959539334900276661647744307076374976855764; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo9715091006776044729847917980087248655983330827758495273175332929347627965226041968235418895995181007; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo6074351672526875948674131469384913878738214470833669819936579198348905975600269071232728930685846624; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo7532795150100201509535358173413491060535161335374964719801705070949411277079112242781917987678878969; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=|
+CAT{il login di  non è stato completato con successo}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=ds|
+CAT{il login di ds non è stato completato con successo}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=|
+CAT{il login di  non è stato completato con successo}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=|
+CAT{il login di  non è stato completato con successo}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=|
+CAT{il login di  non è stato completato con successo}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=|
+CAT{il login di  non è stato completato con successo}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=|
+CAT{il login di  non è stato completato con successo}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=|
+CAT{il login di  non è stato completato con successo}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=|
+CAT{il login di  non è stato completato con successo}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo1792693085822816806983829112037112339671744292911047738048870864112340684675799922065077244988961201; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo2878741993614827632536614839895252194944324648503729455815357586855453548313744178381502264163748988; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo8910072129709999522558223075494616747720048629330483216262415744468649666805404411955848371285995264; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo1521056771104443793267188928949553989844144118104479694911972086981594833182867258004993144030878519; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo5022378403661893289749138451646508890769892541346916413110890906683962274248515398232541625372813880; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo0346808596753415002537137687054288201818418113345971652146702101632249604601402745806777409506018592; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo1819056961484439759621468977171471148563827920065786329417168453129788830024019258029157168452351711; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo5729017675976935785169756034945087765495035310246343442675723639168483425202050959855463504752948947; Path}|
+

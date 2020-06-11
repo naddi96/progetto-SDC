@@ -87,6 +87,28 @@
 ;;Initialization terminated. Program started
 ;;
 
+(define db (db-interface::set-db-coordinates "127.0.0.1" "root" "root" "vadb" 3306))
+(define connesione (db-interface::DoConnect db))
+
+(defun Manage::alerts (actionl pbuf)
+    (define query (db-interface::DoSqlQuery connesione "select * from vatable") )
+    (define stri (string-join  (apply append query) ","))
+    (eis::GiveHTTPAnswer 
+          eis::http-answer-ok 
+        "Content-Type text/plain charset=utf-8" 
+        ""
+        stri
+    ))
+    
+;;Add HOOK
+(eis::function-pointer-add "alerts" Manage::alerts)
+;;
+
+
+
+
+
+
 ;;HTTP microservices example
 (defun Manage::HTTP-API (actionl pbuf)
   (eis::GiveErrorHTTP401) =>
@@ -122,3 +144,5 @@
 
 ;;
 (CmdManager 'add-handler "add" JSONAPI::add)
+
+

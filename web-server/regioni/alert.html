@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <title>alert regioni</title>
+    
+        <meta charset="utf-8">
+        <style>
+            table {
+                border-collapse: collapse;
+                border: 2px black solid;
+                font: 12px sans-serif;
+            }
+
+            td {
+                border: 1px black solid;
+                padding: 5px;
+            }
+        </style>
+
+</head>
+<body>
+<h1>alert regioni</h1>
+</body>
+
+<div id="dvCSV"></div>
+<script>
+
+
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+x=httpGet("http://127.0.0.1:8888/alert")
+d=x.split(",")
+stri=""
+for (i=0; i<d.length;i=i+4 ){
+  stri=stri+d[i]+","+d[i+1]+","+d[i+2]+","+d[i+3]+"\n"
+}
+
+var table = document.createElement("table");
+var rows = stri.split("\n");
+for (var i = 0; i < rows.length; i++) {
+    var row = table.insertRow(-1);
+    var cells = rows[i].split(",");
+    for (var j = 0; j < cells.length; j++) {
+        var cell = row.insertCell(-1);
+        cell.innerHTML = cells[j];
+    }
+}
+var dvCSV = document.getElementById("dvCSV");
+dvCSV.innerHTML = "";
+dvCSV.appendChild(table);
+
+</script>
+
+</div>
+</html>

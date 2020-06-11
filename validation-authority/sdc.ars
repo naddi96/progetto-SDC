@@ -66,9 +66,27 @@ define AR "blocca ip"
 (*protezione bruteforce/*)
 
 
+(*pagina repilogo allert*)
+
+define urlset allert_html={ /regione/alert.html };
+DEFINE AR "allert html"
+	CONDITION
+		http.url is in allert_html
+              http.cookie['admin'] is in session_admin
+	ACTION       
+		tcp.redirect "127.0.0.1:5001"
+	;
 
 
+define urlset allert_page={ /alert };
+DEFINE AR "allert page"
+	CONDITION
+              http.cookie['admin'] is in session_admin
+		http.url is in allert_page
 
+	ACTION
+		MANAGE "alerts"
+	;
 
 (*rendi dati pubblici*)
 define AR "passa i dati se resi pubblici"
@@ -158,8 +176,8 @@ DEFINE VR "verifica e memorizza livello di criticita"
               http.data["percentuale"] is in valori_critici
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
-              "insert into vatable (percentuale,regione) values ($0,$1)",
-              { http.data["percentuale"],http.uri })
+              "insert into vatable (regione,percentuale) values ($0,$1)",
+              {http.url,http.data["percentuale"]})
 
 ;
 (*/protezione bruteforce*)
