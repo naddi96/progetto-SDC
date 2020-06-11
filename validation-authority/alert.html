@@ -33,7 +33,7 @@ function httpGet(theUrl)
     xmlHttp.send( null );
     return xmlHttp.responseText;
 }
-x=httpGet("http://127.0.0.1:8888/alert")
+x=httpGet("/alert")
 d=x.split(",")
 stri=""
 for (i=0; i<d.length;i=i+4 ){

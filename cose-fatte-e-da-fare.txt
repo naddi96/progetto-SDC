@@ -1,0 +1,52 @@
+Validation Authority (V.A.)
+
+    1.Gestire l’accesso alle rispettive regioni a tre livelli OK
+        L’accesso alle pagine di competenza è controllato dalle ​ Access Rules & Validation Rules.
+        La competenza è su tre livelli con i relativi coni di visibilità del dato.
+            Livello 1( nazionale ) accesso a tutti i dati.
+            Livello 2 (zona nord/centro/sud) accesso ai dati delle regioni di zona.
+            Livello 3 ( regionale) accesso ai dati della regione.
+    
+1:fatto per l’amministratore nazionale, manca da fare per amministratore area e amministratore regionale
+la struttura del codice è a stessa, per le regioni pensavo di fare 2 regioni per area per un totale di 6 regioni 
+cosi evitiamo di farle tutte
+
+
+    2.Report delle azioni fatte OK
+        Report degli accessi e delle azioni compiute dai  vari profili.
+
+2:da fare
+
+
+    3.Notifica all’admin governativo di valori inseriti sopra la soglia OK
+        In caso di valori elevati(ad esempio un numero eccessivo di infetti), il sistema memorizza su una
+        pagina gestita dalla V.A. i dati anomali inseriti e invia una notifica di alert all’amministratore del
+        servizio. In questo caso per evitare di chiamare il LISP potreste definire, ad esempio, che il dato comunicato è percentuale intero (es: 30, per indicare 30%) e quindi se il valore comynicato è in un particolare insieme (es: define set valori_critici = {50, 51, 52, ..., 100};) allora viene generato un report
+    
+3:completata la pagina di alert (bisogna abbellirla)
+
+    4.Rendere pubblici i dati OK
+        I dati potranno essere resi pubblici per una determinata fascia oraria del giorno; il parametro di
+        tale valore sarà configurato via codice. Qui potreste usare i comandi CURL per aggiornare i set da riga di comando (comunicando direttamente con la va come vi ho mostrato) oppure accedendo come superuser a una specifica pagina (virtuale) ad esempio: http://..../PubblicaDati e una VR che verifica che un superuser abbia acceduto a questa pagina e quindi la mette per un certo periodo nelle pagine "aperte"
+
+4:Fatto
+
+
+    5. Proteggere la pagina di login OK
+        Proteggere la pagina di login da attacchi bruteforce bloccando gli ip
+        La VA garantirà la sicurezza del servizio impedendo l’accesso a tutte le “richieste anomale”,così
+        che che queste non raggiungano l’applicazione web ( ​ attacchi bruteforce​ ) ??Ma quali IP? prima se ne deve accorgere, quindi per prima cosa definisco la struttura di un attacco bruteforce, per poterlo riconoscere (es: pagina inesistente per troppe volte da parte dello stesso IP, => blocco ip per un certo tempo modello Google, post o parte query non prevista, ...)
+
+5:fatto
+
+    6. Switch funzionale OK
+    Si prevedono 2 modalità di esecuzione attraverso uno switch: Ma anche qui lo switch sarà definito come una pagina virtuale  acceduta dal superuser. VR associata (enable rule... o disable rule...)
+        1. Passante ( libera da regole)
+        2. Controllata ( con le regole di accesso)
+
+6:da fare non dovrebbe essere complicato
+
+
+    7. Dato un servizio in cui viene richiesto da un cittadino il permesso di spostarsi in un'altra regione/provincia, il servizio è interdetto per 15gg (quarantena) per tutte le regioni di origine/destinazione che hanno avuto un rischio (la percentuale di cui sopra) elevato.Si potrebbero definire delle soglie e quindi operare quarantene di durata differente in base al livello di rischio
+
+7:da fare

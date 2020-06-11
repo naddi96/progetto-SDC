@@ -74,7 +74,7 @@ DEFINE AR "allert html"
 		http.url is in allert_html
               http.cookie['admin'] is in session_admin
 	ACTION       
-		tcp.redirect "127.0.0.1:5001"
+		answer "./alert.html"
 	;
 
 
@@ -87,6 +87,8 @@ DEFINE AR "allert page"
 	ACTION
 		MANAGE "alerts"
 	;
+(*pagina repilogo allert*)
+
 
 (*rendi dati pubblici*)
 define AR "passa i dati se resi pubblici"

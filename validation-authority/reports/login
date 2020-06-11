@@ -643,3 +643,7 @@ CAT{il login di pupprielloB è stato completato con successo18190569614844397596
 VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
 CAT{il login di pupprielloB è stato completato con successo5729017675976935785169756034945087765495035310246343442675723639168483425202050959855463504752948947; Path}|
 
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo7241644192830119333803560368000124559750489578003794475719016520936952626612529518982941762153250338; Path}|
+
