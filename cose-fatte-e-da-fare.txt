@@ -48,6 +48,10 @@ cosi evitiamo di farle tutte
 6:da fare non dovrebbe essere complicato
 
 
-    7. Dato un servizio in cui viene richiesto da un cittadino il permesso di spostarsi in un'altra regione/provincia, il servizio è interdetto per 15gg (quarantena) per tutte le regioni di origine/destinazione che hanno avuto un rischio (la percentuale di cui sopra) elevato.Si potrebbero definire delle soglie e quindi operare quarantene di durata differente in base al livello di rischio
+    7. Dato un servizio in cui viene richiesto da un cittadino il permesso di spostarsi in
+     un'altra regione/provincia, il servizio è interdetto per 15gg (quarantena) per tutte le 
+     regioni di origine/destinazione che hanno avuto un rischio (la percentuale di cui sopra) 
+     elevato.Si potrebbero definire delle soglie e quindi operare quarantene di durata differente in 
+     base al livello di rischio
 
-7:da fare
+7:quasi fatta

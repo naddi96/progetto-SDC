@@ -1,4 +1,4 @@
-DEFINE ipset serverip = { *.*.*.*:*, 127.0.0.1:8000 };
+
 define set utenti_loggati = { };
 
 define urlset url_login_set = { /login };
@@ -8,31 +8,37 @@ define set insieme2 = { };
 
 
 
-define urlset area_nord = { /regione/Piemenonte/*,/regione/Lombardia/* };
+define urlset area_nord = { /regione/Veneto/*/*/*,/regione/Lombardia/*/*/* };
 
-define urlset area_sud = { /regione/Sicilia/*,/regione/Campania/* };
+define urlset area_sud = { /regione/Sicilia/*/*/*,/regione/Campania/*/*/* };
 
-define urlset area_centro = { /regione/Lazio/* , /regione/Abruzzo/* , /regione/Molise/* };
+define urlset area_centro = { /regione/Lazio/*/*/* , /regione/Abruzzo/*/*/* };
 
 (*
 define urlset admin_nazionale = { /regione/Lazio/* , /regione/Abruzzo/* , /regione/Molise/*, /regione/Sicilia/*,/regione/Campania/*,/regione/Piemenonte/*,/regione/Lombardia/* };
 *)
 
-define urlset admin_nazionale ={ /regione/*/*/*/*/*};
+define urlset admin_nazionale ={ /regione/*/*/*/*/* };
 
 
-define urlset Piemenonte ={ /regione/Piemenonte/* };
-define urlset Sicilia = { /regione/Sicilia/* };
-define urlset Lazio = { /regione/Lazio/* };
+
+
+define urlset Campania = { /regione/Campania/*/*/* };
+define urlset Sicilia = { /regione/Sicilia/*/*/* };
+
+define urlset Veneto = { /regione/Veneto/*/*/* };
+define urlset Lombardia = { /regione/Lombardia/*/*/* };
+
+
+define urlset Lazio = { /regione/Lazio/*/*/* };
+define urlset Abruzzo = { /regione/Abruzzo/*/*/* };
 
 define urlset tutti_dati = { /regione/*/dati/* };
 
 
 define urlset login_page = { /login/*/*/* };
 
-
 define urlset login_Admin_post = { /login/admin };
-
 
 
 define set session_admin = { };
@@ -42,12 +48,19 @@ define set session_area_nord = { };
 define set session_area_sud = { };
 define set session_area_centro = { };
 
+
 define set session_Sicilia = { };
+define set session_Campania = { };
 define set session_Lazio = { };
+define set session_Abruzzo = { };
 define set session_Piemonte = { };
+define set session_Lombardia = { };
+
 
 define set pubblica_dati = { };
 define urlset PubblicaDati = { /PubblicaDati };
+
+
 
 (*/protezione bruteforce*)
 define urlset login_post = { /login/admin, /login/regione, /login/area };
@@ -56,6 +69,8 @@ define set livello2 = { };
 define set livello3 = { };
 define set livello4 = { };
 define set livello5 = { };
+
+define set regioni_interdette = { };
 
 define AR "blocca ip"
        CONDITION
@@ -66,8 +81,68 @@ define AR "blocca ip"
 (*protezione bruteforce/*)
 
 
-(*pagina repilogo allert*)
 
+(*pagina richiesta spostamento*)
+define urlset sposta_url={ /richiesta/richiestaSpostamento.html };
+DEFINE AR "serve richiesta spostamento"
+	CONDITION
+		http.url is in sposta_url
+	ACTION
+		answer "./richiestaSpostamento.html"
+	;
+
+define urlset sposta_post_url = { /richiestaSpostamento };
+DEFINE AR "richiesta spostamento SI"
+	CONDITION
+		http.url is in sposta_post_url
+              not http.data["regione1"] is in regioni_interdette
+              not http.data["regione2"] is in regioni_interdette
+	ACTION
+		answer "SI" (*fare pagina si*)
+	;
+DEFINE AR "richiesta spostamento NO regione1"
+	CONDITION
+		http.url is in sposta_post_url
+              http.data["regione1"] is in regioni_interdette
+	ACTION
+		answer "NO" (*fare pagina NO*)
+       ;
+DEFINE AR "richiesta spostamento NO regione2"
+       CONDITION
+              http.url is in sposta_post_url
+              http.data["regione2"] is in regioni_interdette
+	ACTION
+		answer "NO" (*fare pagina NO*)
+       ;
+
+DEFINE VR "memorizza richiesta spostatamento"
+	CONDITION
+		http.url is in sposta_post_url
+              not http.data["regione1"] is in regioni_interdette
+              not http.data["regione2"] is in regioni_interdette
+	ACTION
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into richiestespo (codicefiscale,partenza,arrivo,esito) values ($0,$1,$2)",
+              {http.data["codicefiscale"],http.data["regione1"],http.data["regione2"],"AFFERMATIVO"})
+       OR
+       	http.url is in sposta_post_url
+              http.data["regione1"] is in regioni_interdette
+       ACTION
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into richiestespo (codicefiscale,partenza,arrivo,esito) values ($0,$1,$2)",
+              {http.data["codicefiscale"],http.data["regione1"],http.data["regione2"],"NEGATIVO"})
+       OR
+              http.url is in sposta_post_url
+              http.data["regione2"] is in regioni_interdette
+	ACTION
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into richiestespo (codicefiscale,partenza,arrivo,esito) values ($0,$1,$2)",
+              {http.data["codicefiscale"],http.data["regione1"],http.data["regione2"],"NEGATIVO"})
+       ;
+
+
+
+(*pagina repilogo allert*)
 define urlset allert_html={ /regione/alert.html };
 DEFINE AR "allert html"
 	CONDITION
@@ -162,14 +237,12 @@ DEFINE VR "verifica login admin nazionale"
               report login {cat {"il login di ", utente, " non è stato completato con successo"}}
        )
 ;
-
-
 (*accesso login admin*)
 
 
 
 (*valori critici va admin nazionale*)
-define set valori_critici={ "60","61","62","63","64","65","66","67","68","69","70" };
+define set valori_critici = { "50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100" };
 define urlset admin_nazionale_submit = { /regione/submit/* };
 DEFINE VR "verifica e memorizza livello di criticita"
        CONDITION
@@ -180,8 +253,10 @@ DEFINE VR "verifica e memorizza livello di criticita"
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into vatable (regione,percentuale) values ($0,$1)",
               {http.url,http.data["percentuale"]})
-
+              add http.uri to set regioni_interdette 259200 "/regione/submit/" "" 
 ;
+
+
 (*/protezione bruteforce*)
 define VR "login bruteforce livello5 blocco ip"
        CONDITION 
