@@ -2,30 +2,51 @@
 <html lang="it">
 <head>
     <title>alert regioni</title>
-    
+      <link rel="stylesheet" href="style.css" type="text/css">
         <meta charset="utf-8">
         <style>
             table {
+              margin-top: 10px;
+              width: 55%;
                 border-collapse: collapse;
-                border: 2px black solid;
+                border: 2px;
                 font: 12px sans-serif;
             }
-
-            td {
-                border: 1px black solid;
-                padding: 5px;
+            td, th {
+              border: 1px solid #dddddd;
+              text-align: left;
+              padding: 8px;
+            }
+            th{
+            font-size:15px;
+            }
+            tr:nth-child(even) {
+              background-color: #dddddd;
             }
         </style>
 
 </head>
 <body>
-<h1>alert regioni</h1>
-</body>
-
+  <section class="wpTopHeader">
+    <a href="mailto:angelo.silvestri@students.uniroma2.it" title="send mail" class="onlyText">Angelo Silvestri</a>
+    <a href="mail" title="send mail" class="onlyText">Damiano Nardi</a>
+    <a href="mail" title="send mail" class="onlyText">Simone Bruno</a>
+  </section>
+  <div>
+  <center>
+    <div class="container">
+      <div id="contact">
+      <b><span style="font-size:30px;">Alert regioni</span></b>
+      </div>
+    </div>
+    <div class="footer">
+      Design by Simone Bruno, Damiano Nardi, Angelo Silvestri, copyright © 2020. All rights reserved.
+    </div>
+    <table id="table"></table>
 <div id="dvCSV"></div>
+</center>
+  </div>
 <script>
-
-
 function httpGet(theUrl)
 {
     var xmlHttp = new XMLHttpRequest();
@@ -40,7 +61,7 @@ for (i=0; i<d.length;i=i+4 ){
   stri=stri+d[i]+","+d[i+1]+","+d[i+2]+","+d[i+3]+"\n"
 }
 
-var table = document.createElement("table");
+var table = document.getElementById("table");
 var rows = stri.split("\n");
 for (var i = 0; i < rows.length; i++) {
     var row = table.insertRow(-1);
@@ -55,6 +76,5 @@ dvCSV.innerHTML = "";
 dvCSV.appendChild(table);
 
 </script>
-
-</div>
+</body>
 </html>
