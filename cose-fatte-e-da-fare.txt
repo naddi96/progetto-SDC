@@ -24,7 +24,7 @@ cosi evitiamo di farle tutte
         pagina gestita dalla V.A. i dati anomali inseriti e invia una notifica di alert all’amministratore del
         servizio. In questo caso per evitare di chiamare il LISP potreste definire, ad esempio, che il dato comunicato è percentuale intero (es: 30, per indicare 30%) e quindi se il valore comynicato è in un particolare insieme (es: define set valori_critici = {50, 51, 52, ..., 100};) allora viene generato un report
     
-3:completata la pagina di alert (bisogna abbellirla)
+3:completata la pagina di alert fatto)
 
     4.Rendere pubblici i dati OK
         I dati potranno essere resi pubblici per una determinata fascia oraria del giorno; il parametro di

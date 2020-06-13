@@ -647,3 +647,12 @@ VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupp
 VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
 CAT{il login di pupprielloB è stato completato con successo7241644192830119333803560368000124559750489578003794475719016520936952626612529518982941762153250338; Path}|
 
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo1396835705782819531820230843977036267937417242027189975777160191573596549056842562819232665753816864; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo7482595384670744781970763458585204971198061265414717602393026659016213319190609644187483106689788528; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB è stato completato con successo9617142500541107685644555578408833651658637382584152634326346813050109807217967292094239738709664786; Path}|
+

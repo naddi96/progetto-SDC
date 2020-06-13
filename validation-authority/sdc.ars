@@ -122,21 +122,21 @@ DEFINE VR "memorizza richiesta spostatamento"
               not http.data["regione2"] is in regioni_interdette
 	ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
-              "insert into richiestespo (codicefiscale,partenza,arrivo,esito) values ($0,$1,$2)",
+              "insert into richiestespo (codicefiscale,partenza,arrivo,esito) values ($0,$1,$2,$3)",
               {http.data["codicefiscale"],http.data["regione1"],http.data["regione2"],"AFFERMATIVO"})
        OR
        	http.url is in sposta_post_url
               http.data["regione1"] is in regioni_interdette
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
-              "insert into richiestespo (codicefiscale,partenza,arrivo,esito) values ($0,$1,$2)",
+              "insert into richiestespo (codicefiscale,partenza,arrivo,esito) values ($0,$1,$2,$3)",
               {http.data["codicefiscale"],http.data["regione1"],http.data["regione2"],"NEGATIVO"})
        OR
               http.url is in sposta_post_url
               http.data["regione2"] is in regioni_interdette
 	ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
-              "insert into richiestespo (codicefiscale,partenza,arrivo,esito) values ($0,$1,$2)",
+              "insert into richiestespo (codicefiscale,partenza,arrivo,esito) values ($0,$1,$2,$3)",
               {http.data["codicefiscale"],http.data["regione1"],http.data["regione2"],"NEGATIVO"})
        ;
 
