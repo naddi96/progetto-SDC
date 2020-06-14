@@ -39,7 +39,8 @@ def admin():
     try:
         if check_login(db_admin,dict(request.values)):
             cookie=randString(100)
-            resp = make_response("login completato adesso puoi accedere a tutto")
+            #resp = make_response("login completato adesso puoi accedere a tutto")
+            resp = make_response(redirect('/login/loginAdmin/index.html'))
             resp.set_cookie('admin', cookie)
             return resp
         return "wrong user or password"
