@@ -31,6 +31,7 @@ body {
 }
 
 
+#contact input[type="password"],
 #contact input[type="text"],
 #contact input[type="email"],
 #contact input[type="tel"],
@@ -76,6 +77,7 @@ fieldset {
 }
 
 
+#contact input[type="password"],
 #contact input[type="text"],
 #contact input[type="email"],
 #contact input[type="tel"],
@@ -89,7 +91,7 @@ fieldset {
   padding: 10px;
 }
 
-
+#contact input[type="password"]:hover,
 #contact input[type="text"]:hover,
 #contact input[type="email"]:hover,
 #contact input[type="tel"]:hover,

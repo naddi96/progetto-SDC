@@ -196,7 +196,6 @@ define VR "pubblica dati VR"
 (*rendi dati pubblici end*)
 
 
-
 (*accesso login admin*)
 define AR "passa login page"
     CONDITION
