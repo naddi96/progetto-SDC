@@ -3,6 +3,10 @@ import json
 import os
 app = Flask(__name__)
 
+@app.route('/home/<path:path>')
+def server2(path):
+    return send_from_directory("home/",path)
+
 
 @app.route('/regione/<path:path>')
 def server(path):

@@ -38,7 +38,10 @@ define urlset tutti_dati = { /regione/*/dati/* };
 
 define urlset login_page = { /login/*/*/* };
 
+
 define urlset login_Admin_post = { /login/admin };
+define urlset login_Area_post = { /login/area };
+define urlset login_Regione_post = { /login/regione };
 
 
 define set session_admin = { };
@@ -196,13 +199,16 @@ define VR "pubblica dati VR"
 (*rendi dati pubblici end*)
 
 
-(*accesso login admin*)
+
+(**** LOGIN ]**)
 define AR "passa login page"
     CONDITION
         http.url is in login_page
     ACTION
         tcp.redirect "127.0.0.1:5000"
 ;
+
+(*accesso login admin*)
 
 define AR "passa admin"
     CONDITION
@@ -239,6 +245,40 @@ DEFINE VR "verifica login admin nazionale"
 (*accesso login admin*)
 
 
+(***********ACCESSO PER AREA ***************)
+define AR "passa areaSud"
+    CONDITION
+        http.url is in area_sud
+        http.cookie['area'] is in session_area_sud
+    ACTION
+        tcp.redirect "127.0.0.1:5001"
+;
+
+DEFINE VR "verifica login admin areaSud"
+       CONDITION
+              obs.event is net.send
+              http.url is in login_Area_post
+       VAR
+              sessione = net.sesid
+              utente = http.data["username"]
+       ACTION
+              report login {http.uri, http.data["username"]}
+       NEXT (
+              exists http.answer.cookie["area"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["area"]}}
+              add http.answer.cookie["area"] to set session_area_sud ";.*$" ""
+       OR
+              not exists http.answer.cookie["area"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+       )
+;
+(*********FINE ACCESSO AREA ****************)
 
 (*valori critici va admin nazionale*)
 define set valori_critici = { "50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100" };
