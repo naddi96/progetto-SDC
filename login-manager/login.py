@@ -28,8 +28,11 @@ def check_login(db_json,req):
     password=req['password']
     nome=req["username"]
     for utente in db_json:
-        if (utente[tipo]["nome"] ==nome and  utente[tipo]["pass"]==password ):
-            return True
+        #if (utente[tipo]["nome"] ==nome and  utente[tipo]["pass"]==password ):
+        #
+        if (utente.get(tipo)!= None):
+            if ((utente.get(tipo)).get("nome") == nome and (utente.get(tipo)).get("pass")==password ):       
+                return True
     return False        
 
 
@@ -59,7 +62,7 @@ def area():
             return resp
         return "wrong user or password"
     except:
-        return "wrong user or password"
+        return "Exception:wrong user or password"
 
 
 

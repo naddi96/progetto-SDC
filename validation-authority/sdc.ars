@@ -278,6 +278,77 @@ DEFINE VR "verifica login admin areaSud"
               report login {cat {"il login di ", utente, " non è stato completato con successo"}}
        )
 ;
+
+
+define AR "passa areaNord"
+    CONDITION
+        http.url is in area_nord
+        http.cookie['area'] is in session_area_nord
+    ACTION
+        tcp.redirect "127.0.0.1:5001"
+;
+
+DEFINE VR "verifica login admin areaNord"
+       CONDITION
+              obs.event is net.send
+              http.url is in login_Area_post
+       VAR
+              sessione = net.sesid
+              utente = http.data["username"]
+       ACTION
+              report login {http.uri, http.data["username"]}
+       NEXT (
+              exists http.answer.cookie["area"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["area"]}}
+              add http.answer.cookie["area"] to set session_area_nord ";.*$" ""
+       OR
+              not exists http.answer.cookie["area"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+       )
+;
+
+
+define AR "passa areaCentro"
+    CONDITION
+        http.url is in area_centro
+        http.cookie['area'] is in session_area_centro
+    ACTION
+        tcp.redirect "127.0.0.1:5001"
+;
+
+DEFINE VR "verifica login admin areaCentro"
+       CONDITION
+              obs.event is net.send
+              http.url is in login_Area_post
+       VAR
+              sessione = net.sesid
+              utente = http.data["username"]
+       ACTION
+              report login {http.uri, http.data["username"]}
+       NEXT (
+              exists http.answer.cookie["area"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["area"]}}
+              add http.answer.cookie["area"] to set session_area_centro ";.*$" ""
+       OR
+              not exists http.answer.cookie["area"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+       )
+;
+
+
+
 (*********FINE ACCESSO AREA ****************)
 
 (*valori critici va admin nazionale*)
