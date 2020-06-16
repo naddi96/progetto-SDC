@@ -1,6 +1,8 @@
 [
-    {"Campania":{"nome":"pupprielloB","pass":"password"}},
-    {"Lombardia":{"nome":"pupprielloA","pass":"password"}},
-    {"Lazio":{"nome":"pupprielloC","pass":"password"}}
-    
+    {"Campania":{"nome":"campania","pass":"password"}},
+    {"Lombardia":{"nome":"lombardia","pass":"password"}},
+    {"Lazio":{"nome":"lazio","pass":"password"}},
+    {"Veneto":{"nome":"veneto","pass":"password"}},
+    {"Sicilia":{"nome":"sicilia","pass":"password"}},
+    {"Abruzzo":{"nome":"abruzzo","pass":"password"}}
 ]

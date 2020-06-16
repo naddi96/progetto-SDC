@@ -40,12 +40,20 @@ define urlset login_page = { /login/*/*/* };
 
 
 define urlset login_Admin_post = { /login/admin };
+
 define urlset login_AreaS_post = { /login/areaS };
 define urlset login_AreaC_post = { /login/areaC };
 define urlset login_AreaN_post = { /login/areaN };
 
 
-define urlset login_Regione_post = { /login/regione };
+define urlset login_Lazio_post = { /login/Lazio };
+define urlset login_Abruzzo_post = { /login/Abruzzo };
+
+define urlset login_Campania_post = { /login/Campania };
+define urlset login_Sicilia_post = { /login/Sicilia };
+
+define urlset login_Veneto_post = { /login/Veneto };
+define urlset login_Lombardia_post = { /login/Lombardia };
 
 
 
@@ -357,6 +365,212 @@ DEFINE VR "verifica login admin areaCentro"
 
 
 (*********FINE ACCESSO AREA ****************)
+
+(***********ACCESSO PER REGIONE ***************)
+define AR "passa Lazio"
+    CONDITION
+        http.url is in Lazio
+        http.cookie['regione'] is in session_Lazio
+    ACTION
+        tcp.redirect "127.0.0.1:5001"
+;
+
+DEFINE VR "verifica login admin Lazio"
+       CONDITION
+              obs.event is net.send
+              http.url is in login_Lazio_post
+       VAR
+              sessione = net.sesid
+              utente = http.data["username"]
+       ACTION
+              report login {http.uri, http.data["username"]}
+       NEXT (
+              exists http.answer.cookie["regione"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["regione"]}}
+              add http.answer.cookie["regione"] to set session_Lazio ";.*$" ""
+       OR
+              not exists http.answer.cookie["regione"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+       )
+;
+
+
+define AR "passa Abruzzo"
+    CONDITION
+        http.url is in Abruzzo
+        http.cookie['regione'] is in session_Abruzzo
+    ACTION
+        tcp.redirect "127.0.0.1:5001"
+;
+
+DEFINE VR "verifica login admin Abruzzo"
+       CONDITION
+              obs.event is net.send
+              http.url is in login_Abruzzo_post
+       VAR
+              sessione = net.sesid
+              utente = http.data["username"]
+       ACTION
+              report login {http.uri, http.data["username"]}
+       NEXT (
+              exists http.answer.cookie["regione"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["regione"]}}
+              add http.answer.cookie["regione"] to set session_Abruzzo ";.*$" ""
+       OR
+              not exists http.answer.cookie["regione"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+       )
+;
+
+
+define AR "passa Campania"
+    CONDITION
+        http.url is in Campania
+        http.cookie['regione'] is in session_Campania
+    ACTION
+        tcp.redirect "127.0.0.1:5001"
+;
+
+DEFINE VR "verifica login admin Campania"
+       CONDITION
+              obs.event is net.send
+              http.url is in login_Campania_post
+       VAR
+              sessione = net.sesid
+              utente = http.data["username"]
+       ACTION
+              report login {http.uri, http.data["username"]}
+       NEXT (
+              exists http.answer.cookie["regione"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["regione"]}}
+              add http.answer.cookie["regione"] to set session_Campania ";.*$" ""
+       OR
+              not exists http.answer.cookie["regione"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+       )
+;
+
+
+define AR "passa Sicilia"
+    CONDITION
+        http.url is in Sicilia
+        http.cookie['regione'] is in session_Sicilia
+    ACTION
+        tcp.redirect "127.0.0.1:5001"
+;
+
+DEFINE VR "verifica login admin Sicilia"
+       CONDITION
+              obs.event is net.send
+              http.url is in login_Sicilia_post
+       VAR
+              sessione = net.sesid
+              utente = http.data["username"]
+       ACTION
+              report login {http.uri, http.data["username"]}
+       NEXT (
+              exists http.answer.cookie["regione"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["regione"]}}
+              add http.answer.cookie["regione"] to set session_Sicilia ";.*$" ""
+       OR
+              not exists http.answer.cookie["regione"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+       )
+;
+
+
+define AR "passa Lombardia"
+    CONDITION
+        http.url is in Lombardia
+        http.cookie['regione'] is in session_Lombardia
+    ACTION
+        tcp.redirect "127.0.0.1:5001"
+;
+
+DEFINE VR "verifica login admin Lombardia"
+       CONDITION
+              obs.event is net.send
+              http.url is in login_Lombardia_post
+       VAR
+              sessione = net.sesid
+              utente = http.data["username"]
+       ACTION
+              report login {http.uri, http.data["username"]}
+       NEXT (
+              exists http.answer.cookie["regione"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["regione"]}}
+              add http.answer.cookie["regione"] to set session_Lombardia ";.*$" ""
+       OR
+              not exists http.answer.cookie["regione"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+       )
+;
+
+
+define AR "passa Veneto"
+    CONDITION
+        http.url is in Veneto
+        http.cookie['regione'] is in session_Veneto
+    ACTION
+        tcp.redirect "127.0.0.1:5001"
+;
+
+DEFINE VR "verifica login admin Veneto"
+       CONDITION
+              obs.event is net.send
+              http.url is in login_Veneto_post
+       VAR
+              sessione = net.sesid
+              utente = http.data["username"]
+       ACTION
+              report login {http.uri, http.data["username"]}
+       NEXT (
+              exists http.answer.cookie["regione"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["regione"]}}
+              add http.answer.cookie["regione"] to set session_Veneto ";.*$" ""
+       OR
+              not exists http.answer.cookie["regione"]
+              obs.event is net.recv
+              net.sesid is sessione
+       ACTION
+              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+       )
+;
+
+(*********FINE ACCESSO REGIONE ****************)
 
 (*valori critici va admin nazionale*)
 define set valori_critici = { "50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100" };

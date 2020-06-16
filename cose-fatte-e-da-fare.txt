@@ -7,11 +7,7 @@ Validation Authority (V.A.)
             Livello 2 (zona nord/centro/sud) accesso ai dati delle regioni di zona.
             Livello 3 ( regionale) accesso ai dati della regione.
     
-1:fatto per l’amministratore nazionale, manca da fare per amministratori area(nordo centro sud) 
-e amministratori regionali (Campania-sicilia lazio-abruzzo lombardia-veneto)
-la struttura del codice è a stessa, per le regioni pensavo di fare 2 regioni per area per un totale di 6 regioni 
-cosi evitiamo di farle tutte
-
+1:fatto
 
     2.Report delle azioni fatte OK
         Report degli accessi e delle azioni compiute dai  vari profili.

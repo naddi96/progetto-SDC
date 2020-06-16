@@ -22,7 +22,7 @@
 <center>
   <div class="container">
     <span>
-  <form id="contact" action="/login/regione" method="post">
+  <form id="contact" action="" method="post">
     <center><h3>Login</h3>
   </center>
     <fieldset><p>Username</p>
@@ -32,19 +32,14 @@
       <input name="password" placeholder="Password" type="password" tabindex="2" required>
     </fieldset>
     <fieldset><p>Seleziona tipo account</p>
-      <select name="tipo" id="account" required>
-        <option value=Campania>Campania</option>
-        <option value=Lombardia>Lombardia</option>
-        <option value=Lazio>Lazio</option>
-        <option value=Abruzzo>Abruzzo</option>
-        <option value=Veneto>Veneto</option>
-        <option value=Sicilia>Sicilia</option>
-      </select>
+      <button name="tipo" type="submit" id="contact-submit" data-submit="...Sending" value="Campania" formaction="/login/Campania">Campania</button>
+      <button name="tipo" type="submit" id="contact-submit" data-submit="...Sending" value="Lombardia" formaction="/login/Lombardia">Lombardia</button>
+      <button name="tipo" type="submit" id="contact-submit" data-submit="...Sending" value="Lazio" formaction="/login/Lazio">Lazio</button>
+      <button name="tipo" type="submit" id="contact-submit" data-submit="...Sending" value="Abruzzo" formaction="/login/Abruzzo">Abruzzo</button>
+      <button name="tipo" type="submit" id="contact-submit" data-submit="...Sending" value="Veneto" formaction="/login/Veneto">Veneto</button>
+      <button name="tipo" type="submit" id="contact-submit" data-submit="...Sending" value="Sicilia" formaction="/login/Sicilia">Sicilia</button>
     </fieldset>
-    <fieldset>
-      <button name="login" type="submit" id="contact-submit" data-submit="...Sending">Login</button>
       <p>Non sei registrato?<a href="">Sign in</a></p>
-    </fieldset>
     </form>
   </span>
   </div>

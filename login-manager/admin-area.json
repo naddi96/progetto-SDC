@@ -1,5 +1,5 @@
 [
-{"admin-area-sud":{"nome":"pupprielloA","pass":"password"}},
-{"admin-area-nord":{"nome":"pupprielloB","pass":"password"}},
-{"admin-area-centro":{"nome":"pupprielloC","pass":"password"}}
+{"admin-area-sud":{"nome":"sud","pass":"password"}},
+{"admin-area-nord":{"nome":"nord","pass":"password"}},
+{"admin-area-centro":{"nome":"centro","pass":"password"}}
 ]
