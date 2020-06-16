@@ -40,8 +40,15 @@ define urlset login_page = { /login/*/*/* };
 
 
 define urlset login_Admin_post = { /login/admin };
-define urlset login_Area_post = { /login/area };
+define urlset login_AreaS_post = { /login/areaS };
+define urlset login_AreaC_post = { /login/areaC };
+define urlset login_AreaN_post = { /login/areaN };
+
+
 define urlset login_Regione_post = { /login/regione };
+
+
+
 
 
 define set session_admin = { };
@@ -257,7 +264,7 @@ define AR "passa areaSud"
 DEFINE VR "verifica login admin areaSud"
        CONDITION
               obs.event is net.send
-              http.url is in login_Area_post
+              http.url is in login_AreaS_post
        VAR
               sessione = net.sesid
               utente = http.data["username"]
@@ -291,7 +298,7 @@ define AR "passa areaNord"
 DEFINE VR "verifica login admin areaNord"
        CONDITION
               obs.event is net.send
-              http.url is in login_Area_post
+              http.url is in login_AreaN_post
        VAR
               sessione = net.sesid
               utente = http.data["username"]
@@ -325,7 +332,7 @@ define AR "passa areaCentro"
 DEFINE VR "verifica login admin areaCentro"
        CONDITION
               obs.event is net.send
-              http.url is in login_Area_post
+              http.url is in login_AreaC_post
        VAR
               sessione = net.sesid
               utente = http.data["username"]

@@ -52,8 +52,8 @@ def admin():
         return "wrong user or password"
 
 
-@app.route('/login/area',methods=["POST"])
-def area():
+@app.route('/login/areaS',methods=["POST"])
+def areaS():
     try:
         if check_login(db_area,dict(request.values)):
             cookie=randString(100)
@@ -63,6 +63,36 @@ def area():
         return "wrong user or password"
     except:
         return "Exception:wrong user or password"
+
+
+@app.route('/login/areaN',methods=["POST"])
+def areaN():
+    try:
+        if check_login(db_area,dict(request.values)):
+            cookie=randString(100)
+            resp = make_response("login completato adesso puoi accedere nella tua area regionale")
+            resp.set_cookie('area', cookie)
+            return resp
+        return "wrong user or password"
+    except:
+        return "Exception:wrong user or password"
+
+
+
+
+@app.route('/login/areaC',methods=["POST"])
+def areaC():
+    try:
+        if check_login(db_area,dict(request.values)):
+            cookie=randString(100)
+            resp = make_response("login completato adesso puoi accedere nella tua area regionale")
+            resp.set_cookie('area', cookie)
+            return resp
+        return "wrong user or password"
+    except:
+        return "Exception:wrong user or password"
+
+
 
 
 
