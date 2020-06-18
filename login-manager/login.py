@@ -52,7 +52,7 @@ def admin():
         return "Exception:wrong user or password"
 
 
-@app.route('/login/areaS',methods=["POST"])
+@app.route('/login/area',methods=["POST"])
 def areaS():
     try:
         if check_login(db_area,dict(request.values)):
@@ -65,99 +65,11 @@ def areaS():
         return "Exception:wrong user or password"
 
 
-@app.route('/login/areaN',methods=["POST"])
-def areaN():
-    try:
-        if check_login(db_area,dict(request.values)):
-            cookie=randString(100)
-            resp = make_response("login completato adesso puoi accedere nella tua area regionale")
-            resp.set_cookie('area', cookie)
-            return resp
-        return "wrong user or password"
-    except:
-        return "Exception:wrong user or password"
 
 
 
-
-@app.route('/login/areaC',methods=["POST"])
-def areaC():
-    try:
-        if check_login(db_area,dict(request.values)):
-            cookie=randString(100)
-            resp = make_response("login completato adesso puoi accedere nella tua area regionale")
-            resp.set_cookie('area', cookie)
-            return resp
-        return "wrong user or password"
-    except:
-        return "Exception:wrong user or password"
-
-
-
-
-
-@app.route('/login/Lazio',methods=["POST"])
-def Lazio():
-    try:
-        if check_login(db_regione,dict(request.values)):
-            cookie=randString(100)
-            resp = make_response("login completato adesso puoi accedere nella tua regione")
-            resp.set_cookie('regione', cookie)
-            return resp
-        return "wrong user or password"
-    except:
-        return "Exception:wrong user or password"
-
-@app.route('/login/Abruzzo',methods=["POST"])
-def Abruzzo():
-    try:
-        if check_login(db_regione,dict(request.values)):
-            cookie=randString(100)
-            resp = make_response("login completato adesso puoi accedere nella tua regione")
-            resp.set_cookie('regione', cookie)
-            return resp
-        return "wrong user or password"
-    except:
-        return "Exception:wrong user or password"
-
-@app.route('/login/Campania',methods=["POST"])
-def Campania():
-    try:
-        if check_login(db_regione,dict(request.values)):
-            cookie=randString(100)
-            resp = make_response("login completato adesso puoi accedere nella tua regione")
-            resp.set_cookie('regione', cookie)
-            return resp
-        return "wrong user or password"
-    except:
-        return "Exception:wrong user or password"
-
-@app.route('/login/Sicilia',methods=["POST"])
-def Sicilia():
-    try:
-        if check_login(db_regione,dict(request.values)):
-            cookie=randString(100)
-            resp = make_response("login completato adesso puoi accedere nella tua regione")
-            resp.set_cookie('regione', cookie)
-            return resp
-        return "wrong user or password"
-    except:
-        return "Exception:wrong user or password"
-
-@app.route('/login/Veneto',methods=["POST"])
-def Veneto():
-    try:
-        if check_login(db_regione,dict(request.values)):
-            cookie=randString(100)
-            resp = make_response("login completato adesso puoi accedere nella tua regione")
-            resp.set_cookie('regione', cookie)
-            return resp
-        return "wrong user or password"
-    except:
-        return "Exception:wrong user or password"
-
-@app.route('/login/Lombardia',methods=["POST"])
-def Lombardia():
+@app.route('/login/regione',methods=["POST"])
+def regione():
     try:
         if check_login(db_regione,dict(request.values)):
             cookie=randString(100)

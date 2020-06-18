@@ -22,7 +22,7 @@
 <center>
   <div class="container">
     <span>
-  <form id="contact" action="" method="post">
+  <form id="contact" action="/login/area" method="post">
     <center><h3>Login</h3>
   </center>
     <fieldset><p>Username</p>
@@ -31,11 +31,13 @@
     <fieldset><p>Password</p>
       <input name="password" placeholder="Password" type="password" tabindex="2" required>
     </fieldset>
-    <fieldset><p>Seleziona tipo account</p>
-      <button name="tipo" type="submit" id="contact-submit" data-submit="...Sending" value="admin-area-nord" formaction="/login/areaN">Nord</button>
-      <button name="tipo" type="submit" id="contact-submit" data-submit="...Sending" value="admin-area-sud" formaction="/login/areaS">Sud</button>
-      <button name="tipo" type="submit" id="contact-submit" data-submit="...Sending" value="admin-area-centro" formaction="/login/areaC">Centro</button>
-    </fieldset>
+    <select name="tipo" id="account" required>
+      <option value=admin-area-nord>Nord</option>
+      <option value=admin-area-sud>Sud</option>
+      <option value=admin-area-centro>Centro</option>
+    </select>
+    <button name="login" type="submit" id="contact-submit" data-submit="...Sending">Login</button>
+
       <p>Non sei registrato?<a href="">Sign in</a></p>
     </form>
   </span>
