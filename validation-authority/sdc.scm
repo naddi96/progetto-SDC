@@ -108,42 +108,39 @@
 
 
 
-
-
-;;HTTP microservices example
-(defun Manage::HTTP-API (actionl pbuf)
-  (eis::GiveErrorHTTP401) =>
-  (eis::GiveHTTPJSONAnswer '(("answer" . "ok")))
-  )
-
-;;Add HOOK
-(eis::function-pointer-add "HTTPAPI" Manage::HTTP-API)
-;;
-
-;;
-;;
-;;JSON microservices manager (CmdManager) example
-(define (JSON-ANSWER::error msg errid)
-  `((success . #f)(message . ,msg) (errorid . ,errid)))
-;;
-(define (JSON-ANSWER::success msg data_name data)
-  `((success . #t)(message . ,msg) (data . ((,data_name . ,data)))))
-
-(defun JSONAPI::add (k v pbuf set-names)
-  (eis::GiveHTTPJSONAnswer (JSON-ANSWER::error "General System Error" -1))  =>
-  (Show "Got add" v)
-  (let ((v1 (assoc-ref v "v1"))
- (v2 (assoc-ref v "v2")))
-    (eis::GiveHTTPJSONAnswer (JSON-ANSWER::success "OK" "DATANAME" (+ v1 v2)))
+(defun Manage::spostamenticf (actionl pbuf)
+    (define codiceFiscale (mtfa-eis-get-value-current-query pbuf "codicefiscale"))
+    (define connesione (db-interface::DoConnect db))
+    (define query_str "select * from richiestespo where codicefiscale='")
+    (define cf (string-append codiceFiscale "'"))
+    (define query_tot (string-append query_str cf))
+    (define query (db-interface::DoSqlQuery connesione query_tot) )
+    (define stri (string-join  (apply append query) ","))
+    (eis::GiveHTTPAnswer 
+          eis::http-answer-ok 
+        "Content-Type text/plain charset=utf-8" 
+        ""
+        stri
     ))
-
-(define CmdManager (mtfa-web-make-json-requests-manager "JSONAPI"))
-;;Si aspetta che le richieste json abbiano sempre la seguente struttura
-;;"req1": {k: v, k: v, ...}
+    
+;;Add HOOK
+(eis::function-pointer-add "spostamenticf" Manage::spostamenticf)
 ;;
-;;ESEMPIO CURL: curl http://127.0.0.1:8888/ReqJson --data '{"add": {"v1": 10, "v2": 20}}' -H 'Content-Type:application/json'
 
+
+
+(defun Manage::spostamenti (actionl pbuf)
+    (define connesione (db-interface::DoConnect db))
+    (define query_str "select * from richiestespo ")
+    (define query (db-interface::DoSqlQuery connesione query_str) )
+    (define stri (string-join  (apply append query) ","))
+    (eis::GiveHTTPAnswer 
+          eis::http-answer-ok 
+        "Content-Type text/plain charset=utf-8" 
+        ""
+        stri
+    ))
+    
+;;Add HOOK
+(eis::function-pointer-add "spostamenti" Manage::spostamenti)
 ;;
-(CmdManager 'add-handler "add" JSONAPI::add)
-
-

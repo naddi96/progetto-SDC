@@ -101,38 +101,88 @@ define AR "blocca ip"
 
 
 
+(*pagina visione tuttu spostamenti per admin*)
+define urlset spostamenti_html={ /spostamenti/spostamenti.html };
+DEFINE AR "visione spostamenti html"
+	CONDITION
+		http.url is in spostamenti_html
+              http.cookie['admin'] is in session_admin
+	ACTION
+		answer "./html/spostamenti.html"
+	;
+
+define urlset spostamenti_page={ /spostamenti };
+DEFINE AR "spostamenti_page"
+	CONDITION
+              http.cookie['admin'] is in session_admin
+		http.url is in spostamenti_page
+
+	ACTION
+		MANAGE "spostamenti"
+	;
+(* FINE pagina visione tutto spostamenti per admin*)
+
+
+
+
+(*pagina visione spostamenti per singolo codice fiscale*)
+define urlset spostamenticf_html={ /spostamenti/spostamentiCodiceFiscale.html };
+DEFINE AR "visione spostamenti codicefiscale"
+	CONDITION
+		http.url is in spostamenticf_html
+	ACTION
+		answer "./html/spostamentiCodiceFiscale.html"
+	;
+
+define urlset spostamenti_page_cf={ /spostamenticf };
+DEFINE AR "spostamenti_page_cf"
+	CONDITION
+		http.url is in spostamenti_page_cf
+	ACTION
+		MANAGE "spostamenticf"
+	;
+(* FINE pagina visione tutto spostamenti per admin*)
+
+
+
+
+
 (*pagina richiesta spostamento*)
 define urlset sposta_url={ /richiesta/richiestaSpostamento.html };
 DEFINE AR "serve richiesta spostamento"
 	CONDITION
 		http.url is in sposta_url
 	ACTION
-		answer "./richiestaSpostamento.html"
+		answer "./html/richiestaSpostamento.html"
 	;
 
 define urlset sposta_post_url = { /richiestaSpostamento };
 DEFINE AR "richiesta spostamento SI"
 	CONDITION
 		http.url is in sposta_post_url
-              not http.data["regione1"] is in regioni_interdette
-              not http.data["regione2"] is in regioni_interdette
+              not http.query["regione1"] is in regioni_interdette
+              not http.query["regione2"] is in regioni_interdette
 	ACTION
-		answer "./spostamentoAutorizzato.html"
+		answer "./html/spostamentoAutorizzato.html"
 	;
 DEFINE AR "richiesta spostamento NO regione1"
 	CONDITION
 		http.url is in sposta_post_url
-              http.data["regione1"] is in regioni_interdette
+              http.query["regione1"] is in regioni_interdette
 	ACTION
-		answer "./spostatamentoNonAutorizzato.html"
+       
+		answer "./html/spostamentoNonAutorizzato.html"
        ;
 DEFINE AR "richiesta spostamento NO regione2"
        CONDITION
               http.url is in sposta_post_url
-              http.data["regione2"] is in regioni_interdette
+              http.query["regione2"] is in regioni_interdette
 	ACTION
-		answer "./spostatamentoNonAutorizzato.html"
+		answer "./html/spostamentoNonAutorizzato.html"
        ;
+
+
+
 
 DEFINE VR "memorizza richiesta spostatamento"
 	CONDITION
@@ -168,7 +218,7 @@ DEFINE AR "allert html"
 		http.url is in allert_html
               http.cookie['admin'] is in session_admin
 	ACTION
-		answer "./alert.html"
+		answer "./html/alert.html"
 	;
 
 

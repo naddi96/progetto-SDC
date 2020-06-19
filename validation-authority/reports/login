@@ -7,3 +7,33 @@ CAT{admin-area-sud il login di sud è stato completato con successo8656635069936
 VA_ItemTypes::HTTP_URI: /login/area|VA_ItemTypes::HTTP_DATA_POST[username]=sud|VA_ItemTypes::VARIABLE[tipo]=admin-area-sud|
 CAT{admin-area-sud il login di sud è stato completato con successo8403084114687660078179313524293243869964830686083519376703277026050504003332641300951216156883485789; Path}|
 
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=pupprielloB|
+CAT{il login di pupprielloB non è stato completato con successo}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=admin|
+CAT{il login di admin è stato completato con successo0864086130140485837410589701555547488391222333168058179741536903401193982984233687684109655408813992; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=admin|
+CAT{il login di admin è stato completato con successo9142893010600926462751453080451616077179812747576274844191039190165804374784171416809677765660949883; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=admin|
+CAT{il login di admin è stato completato con successo1235047891157366305719865060176751640029724756966976874648692575238243626372349150172868758283686574; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=admin|
+CAT{il login di admin è stato completato con successo9435369145923578934934544330753387672942576078101796294726564562404726033292380353594423098108151201; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=admin|
+CAT{il login di admin è stato completato con successo4136206962841580667003498598388828523910049655697102955161974512444641746260162407105492870365749113; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=admin|
+CAT{il login di admin è stato completato con successo4512006630652663183275335575014830156847489258439223717921421880162237632644810818013534325977216386; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=admin|
+CAT{il login di admin è stato completato con successo7485498366263406472409534606563462548359523239652635264422687394163070700790662154120913989004249930; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=admin|
+CAT{il login di admin è stato completato con successo6804835855119649986576578443954421774344847417886168742257682916717922632097190071670560135901964611; Path}|
+
+VA_ItemTypes::HTTP_URI: /login/admin|VA_ItemTypes::HTTP_DATA_POST[username]=admin|
+CAT{il login di admin è stato completato con successo2959649215883223974393484290077997739122424799234250454876410609625449883907522285198562767195989103; Path}|
+

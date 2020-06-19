@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <title>spostamenti regioni</title>
+      <style media="screen">
+      @import url(https://fonts.googleapis.com/css?family=Roboto:400,300,600,400italic);
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        -webkit-font-smoothing: antialiased;
+        -moz-font-smoothing: antialiased;
+        -o-font-smoothing: antialiased;
+        font-smoothing: antialiased;
+        text-rendering: optimizeLegibility;
+      }
+
+
+      body {
+        font-family: "Roboto", Helvetica, Arial, sans-serif;
+        font-weight: 100;
+        font-size: 12px;
+        line-height: 30px;
+        color: #777;
+        //background: #4CAF50;
+      }
+
+
+      .container {
+        max-width: 80%;
+        width: 80%;
+        margin: 0 auto;
+        position: relative;
+      }
+
+
+      #contact input[type="text"],
+      #contact input[type="email"],
+      #contact input[type="tel"],
+      #contact input[type="url"],
+      #contact textarea,
+      #contact button[type="submit"] {
+        font: 400 12px/16px "Roboto", Helvetica, Arial, sans-serif;
+      }
+
+
+      #contact {
+        background: #F9F9F9;
+        padding: 10px;
+        box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+        width: 70%;
+
+      }
+
+
+      #contact h3 {
+        display: block;
+        font-size: 30px;
+        font-weight: 300;
+        margin-bottom: 10px;
+      }
+
+
+      #contact h4 {
+        margin: 5px 0 15px;
+        display: block;
+        font-size: 13px;
+        font-weight: 400;
+      }
+
+
+      fieldset {
+        border: medium none !important;
+        margin: 0 0 10px;
+        min-width: 80%;
+        padding: 0;
+        width: 80%;
+        text-align: center;
+      }
+
+
+      #contact input[type="text"],
+      #contact input[type="email"],
+      #contact input[type="tel"],
+      #contact input[type="url"],
+      #contact textarea {
+        align-content: center;
+        width: 40%;
+        border: 1px solid #ccc;
+        background: #FFF;
+        margin: 0 0 5px;
+        padding: 10px;
+      }
+
+
+      #contact input[type="text"]:hover,
+      #contact input[type="email"]:hover,
+      #contact input[type="tel"]:hover,
+      #contact input[type="url"]:hover,
+      #contact textarea:hover {
+        -webkit-transition: border-color 0.3s ease-in-out;
+        -moz-transition: border-color 0.3s ease-in-out;
+        transition: border-color 0.3s ease-in-out;
+        border: 1px solid #aaa;
+      }
+
+
+      #contact textarea {
+        height: 100px;
+        max-width: 100%;
+        resize: none;
+      }
+
+
+      #contact button[type="submit"] {
+        cursor: pointer;
+
+        border: none;
+        background: #4CAF50;
+        color: #FFF;
+        margin: 0 0 5px;
+        padding: 10px;
+        font-size: 15px;
+      }
+
+
+      #contact button[type="submit"]:hover {
+        background: #43A047;
+        -webkit-transition: background 0.3s ease-in-out;
+        -moz-transition: background 0.3s ease-in-out;
+        transition: background-color 0.3s ease-in-out;
+
+      }
+
+
+      #contact button[type="submit"]:active {
+        box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+      }
+
+
+      .copyright {
+        text-align: center;
+      }
+
+
+      #contact input:focus,
+      #contact textarea:focus {
+        outline: 0;
+        border: 1px solid #aaa;
+      }
+
+
+      ::-webkit-input-placeholder {
+        color: #888;
+      }
+
+
+      :-moz-placeholder {
+        color: #888;
+      }
+
+
+      ::-moz-placeholder {
+        color: #888;
+      }
+
+
+      :-ms-input-placeholder {
+        color: #888;
+      }
+
+      .logo{background-color: rgb(60, 120, 170);
+          color: white;
+         }
+         .wpTopHeader {
+      width: 100%;
+      height: 40px;
+      background-color: #044d2f;
+      }
+      .onlyText {
+      align-content: right;
+      color: #FFF;
+      text-decoration: none;
+      margin-right: 15px;
+      }
+      .wpHeader {
+      width: 100%;
+      background-color: #FFF;
+      overflow: hidden;
+      }
+      .logo{
+      margin-left: 30px;
+
+      }
+      .title{
+      font-size: 20px;
+
+      }
+      .footer {
+        position: fixed;
+         left: 0;
+         bottom: 0;
+         width: 100%;
+         text-align: center;
+      }
+      .outer{
+        display: table;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+      </style>
+        <meta charset="utf-8">
+        <style>
+            table {
+              margin-top: 10px;
+              width: 55%;
+                border-collapse: collapse;
+                border: 2px;
+                font: 12px sans-serif;
+            }
+            td, th {
+              border: 1px solid #dddddd;
+              text-align: left;
+              padding: 8px;
+            }
+            th{
+            font-size:15px;
+            }
+            tr:nth-child(even) {
+              background-color: #dddddd;
+            }
+        </style>
+
+</head>
+<body>
+  <section class="wpTopHeader">
+    <a href="mailto:angelo.silvestri@students.uniroma2.it" title="send mail" class="onlyText">Angelo Silvestri</a>
+    <a href="mail" title="send mail" class="onlyText">Damiano Nardi</a>
+    <a href="mail" title="send mail" class="onlyText">Simone Bruno</a>
+  </section>
+  <div>
+  <center>
+    <div class="container">
+      <div id="contact">
+      <b><span style="font-size:30px;">spostamenti regioni</span></b>
+      </div>
+    </div>
+    <div class="footer">
+      Design by Simone Bruno, Damiano Nardi, Angelo Silvestri, copyright © 2020. All rights reserved.
+    </div>
+    <table id="table"></table>
+<div id="dvCSV"></div>
+</center>
+  </div>
+<script>
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+x=httpGet("/spostamenti")
+d=x.split(",")
+stri="id,Codice Fiscale,Partenza,Arrivo,Esito,Data\n"
+for (i=0; i<d.length;i=i+6 ){
+  stri=stri+d[i]+","+d[i+1]+","+d[i+2]+","+d[i+3]+","+d[i+4]+","+d[i+5]+"\n"
+}
+
+var table = document.getElementById("table");
+var rows = stri.split("\n");
+for (var i = 0; i < rows.length; i++) {
+    var row = table.insertRow(-1);
+    var cells = rows[i].split(",");
+    for (var j = 0; j < cells.length; j++) {
+        var cell = row.insertCell(-1);
+        cell.innerHTML = cells[j];
+    }
+}
+var dvCSV = document.getElementById("dvCSV");
+dvCSV.innerHTML = "";
+dvCSV.appendChild(table);
+
+</script>
+</body>
+</html>

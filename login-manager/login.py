@@ -65,9 +65,6 @@ def areaS():
         return "Exception:wrong user or password"
 
 
-
-
-
 @app.route('/login/regione',methods=["POST"])
 def regione():
     try:
