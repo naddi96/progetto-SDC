@@ -40,21 +40,22 @@ define urlset login_page = { /login/*/*/* };
 
 
 define urlset login_Admin_post = { /login/admin };
-
-define urlset login_AreaS_post = { /login/areaS };
-define urlset login_AreaC_post = { /login/areaC };
-define urlset login_AreaN_post = { /login/areaN };
+define urlset login_Area_post = { /login/area };
+define urlset login_Regione_post = { /login/regione };
 
 
-define urlset login_Lazio_post = { /login/Lazio };
-define urlset login_Abruzzo_post = { /login/Abruzzo };
 
-define urlset login_Campania_post = { /login/Campania };
-define urlset login_Sicilia_post = { /login/Sicilia };
+define set tipo_lazio = { "Lazio" };
+define set tipo_abruzzo = { "Abruzzo" };
+define set tipo_campania = { "Campania" };
+define set tipo_sicilia = { "Sicilia" };
+define set tipo_veneto = { "Veneto" };
+define set tipo_lombardia = { "Lombardia" };
 
-define urlset login_Veneto_post = { /login/Veneto };
-define urlset login_Lombardia_post = { /login/Lombardia };
 
+define set tipo_area_nord = { "admin-area-nord" };
+define set tipo_area_sud = { "admin-area-sud" };
+define set tipo_area_centro = { "admin-area-centro" };
 
 
 
@@ -272,25 +273,27 @@ define AR "passa areaSud"
 DEFINE VR "verifica login admin areaSud"
        CONDITION
               obs.event is net.send
-              http.url is in login_AreaS_post
+              http.url is in login_Area_post
+              http.data["tipo"] is in tipo_area_sud
        VAR
               sessione = net.sesid
               utente = http.data["username"]
+              tipo = http.data["tipo"]
        ACTION
-              report login {http.uri, http.data["username"]}
+              report login { http.uri, http.data["username"], tipo}
        NEXT (
               exists http.answer.cookie["area"]
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["area"]}}
+              report login {cat {tipo , " il login di ", utente, " è stato completato con successo", http.answer.cookie["area"]}}
               add http.answer.cookie["area"] to set session_area_sud ";.*$" ""
        OR
               not exists http.answer.cookie["area"]
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+              report login {cat {tipo , "il login di ", utente, " non è stato completato con successo"}}
        )
 ;
 
@@ -306,7 +309,8 @@ define AR "passa areaNord"
 DEFINE VR "verifica login admin areaNord"
        CONDITION
               obs.event is net.send
-              http.url is in login_AreaN_post
+              http.url is in login_Area_post
+              http.data["tipo"] is in tipo_area_nord
        VAR
               sessione = net.sesid
               utente = http.data["username"]
@@ -340,7 +344,8 @@ define AR "passa areaCentro"
 DEFINE VR "verifica login admin areaCentro"
        CONDITION
               obs.event is net.send
-              http.url is in login_AreaC_post
+              http.url is in login_Area_post
+              http.data["tipo"] is in tipo_area_centro
        VAR
               sessione = net.sesid
               utente = http.data["username"]
@@ -378,7 +383,8 @@ define AR "passa Lazio"
 DEFINE VR "verifica login admin Lazio"
        CONDITION
               obs.event is net.send
-              http.url is in login_Lazio_post
+              http.url is in login_Regione_post
+              http.data['tipo'] is in tipo_lazio
        VAR
               sessione = net.sesid
               utente = http.data["username"]
@@ -410,9 +416,10 @@ define AR "passa Abruzzo"
 ;
 
 DEFINE VR "verifica login admin Abruzzo"
-       CONDITION
+       CONDITION             
               obs.event is net.send
-              http.url is in login_Abruzzo_post
+              http.url is in login_Regione_post
+              http.data['tipo'] is in tipo_abruzzo
        VAR
               sessione = net.sesid
               utente = http.data["username"]
@@ -446,7 +453,8 @@ define AR "passa Campania"
 DEFINE VR "verifica login admin Campania"
        CONDITION
               obs.event is net.send
-              http.url is in login_Campania_post
+              http.url is in login_Regione_post
+              http.data['tipo'] is in tipo_campania
        VAR
               sessione = net.sesid
               utente = http.data["username"]
@@ -480,7 +488,8 @@ define AR "passa Sicilia"
 DEFINE VR "verifica login admin Sicilia"
        CONDITION
               obs.event is net.send
-              http.url is in login_Sicilia_post
+              http.url is in login_Regione_post
+              http.data['tipo'] is in tipo_sicilia
        VAR
               sessione = net.sesid
               utente = http.data["username"]
@@ -514,7 +523,8 @@ define AR "passa Lombardia"
 DEFINE VR "verifica login admin Lombardia"
        CONDITION
               obs.event is net.send
-              http.url is in login_Lombardia_post
+              http.url is in login_Regione_post
+              http.data['tipo'] is in tipo_lombardia
        VAR
               sessione = net.sesid
               utente = http.data["username"]
@@ -548,7 +558,8 @@ define AR "passa Veneto"
 DEFINE VR "verifica login admin Veneto"
        CONDITION
               obs.event is net.send
-              http.url is in login_Veneto_post
+              http.url is in login_Regione_post
+              http.data['tipo'] is in tipo_veneto
        VAR
               sessione = net.sesid
               utente = http.data["username"]
