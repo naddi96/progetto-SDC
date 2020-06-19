@@ -14,7 +14,7 @@ Validation Authority (V.A.)
 
 2:report su db di: url , ip, cookie, nomeutente (nel login) e campo tipo , 
  quando viene bloccato ip -> ip ,url,data 
- pagine varie -> ip, cookie(se c'è),url,data
+tutte le pagine -> ip, cookie(se c'è),url,data
  login giusto -> ip ,nomeutente,cookie,tipo,url,data
  login sbagliato-> report di ip, nomeutente ,password ,tipo,url,data
 

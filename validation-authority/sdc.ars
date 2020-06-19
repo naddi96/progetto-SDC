@@ -91,6 +91,15 @@ define set livello5 = { };
 
 define set regioni_interdette = { };
 
+define urlset img = { /regione/img/* };
+define AR "passa immagini"
+       CONDITION
+              http.url is in img
+       ACTION
+             tcp.redirect "127.0.0.1:5001"
+;
+
+
 define AR "blocca ip"
        CONDITION
               net.ipsrc is in livello5 ":.*$" ""
