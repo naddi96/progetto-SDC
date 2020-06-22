@@ -11,15 +11,16 @@ def server2(path):
 @app.route('/regione/<path:path>')
 def server(path):
     return send_from_directory("regioni/",path)
-    
+
 
 @app.route('/regione/submit/<path:path>',methods=["POST"])
 def append_post_tofile(path):
     morti=request.values["morti"]
     infetti=request.values["infetti"]
     guariti=request.values["guariti"]
+    percentuale=request.values["percentuale"]
     f=open("regioni/"+path+"/dati/dati_covid19.csv","a")
-    f.write(morti+","+infetti+","+guariti+"\n")
+    f.write(morti+","+infetti+","+guariti+","+percentuale+"\n")
     return "La richiesta è stata memorizzata"
     
 

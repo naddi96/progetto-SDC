@@ -81,6 +81,35 @@ define urlset PubblicaDati = { /PubblicaDati };
 
 
 
+define VR "report"
+      CONDITION
+          http.url is "/*/*/*/*/*"
+          not http.url is in login_page
+      ACTION
+          mysql.append("127.0.0.1:3306","vadb","root","root",
+          "insert into report (url,ip,cookie) values ($0,$1,$2)",
+          {http.url,net.ipsrc,http.answer.cookie["admin"]})
+      OR
+        http.url is "/*/*/*/*/*"
+        not http.url is in login_page
+
+      ACTION
+        mysql.append("127.0.0.1:3306","vadb","root","root",
+        "insert into report (url,ip,cookie) values ($0,$1,$2)",
+        {http.url,net.ipsrc,http.answer.cookie["regione"]})
+      OR
+        http.url is "/*/*/*/*/*"
+        not http.url is in login_page
+
+      ACTION
+        mysql.append("127.0.0.1:3306","vadb","root","root",
+        "insert into report (url,ip,cookie) values ($0,$1,$2)",
+        {http.url,net.ipsrc,http.answer.cookie["area"]})
+
+        ;
+
+
+
 (*/protezione bruteforce*)
 define urlset login_post = { /login/admin, /login/regione, /login/area };
 define set livello1 = { };
@@ -179,7 +208,7 @@ DEFINE AR "richiesta spostamento NO regione1"
 		http.url is in sposta_post_url
               http.query["regione1"] is in regioni_interdette
 	ACTION
-       
+
 		answer "./html/spostamentoNonAutorizzato.html"
        ;
 DEFINE AR "richiesta spostamento NO regione2"
@@ -307,14 +336,20 @@ DEFINE VR "verifica login admin nazionale"
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["admin"]}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,http.answer.cookie["admin"],utente,http.data["tipo"],1})
+
               add http.answer.cookie["admin"] to set session_admin ";.*$" ""
        OR
               not exists http.answer.cookie["admin"]
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
+
        )
 ;
 (*accesso login admin*)
@@ -345,15 +380,19 @@ DEFINE VR "verifica login admin areaSud"
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {tipo , " il login di ", utente, " è stato completato con successo", http.answer.cookie["area"]}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,http.answer.cookie["area"],utente,http.data["tipo"],1})
               add http.answer.cookie["area"] to set session_area_sud ";.*$" ""
        OR
               not exists http.answer.cookie["area"]
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {tipo , "il login di ", utente, " non è stato completato con successo"}}
-       )
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
+              )
 ;
 
 
@@ -380,15 +419,19 @@ DEFINE VR "verifica login admin areaNord"
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["area"]}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,http.answer.cookie["area"],utente,http.data["tipo"],1})
               add http.answer.cookie["area"] to set session_area_nord ";.*$" ""
        OR
               not exists http.answer.cookie["area"]
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
-       )
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
+              )
 ;
 
 
@@ -415,14 +458,19 @@ DEFINE VR "verifica login admin areaCentro"
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["area"]}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,http.answer.cookie["area"],utente,http.data["tipo"],1})
               add http.answer.cookie["area"] to set session_area_centro ";.*$" ""
        OR
               not exists http.answer.cookie["area"]
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
+
        )
 ;
 
@@ -454,14 +502,19 @@ DEFINE VR "verifica login admin Lazio"
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["regione"]}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],1})
               add http.answer.cookie["regione"] to set session_Lazio ";.*$" ""
        OR
               not exists http.answer.cookie["regione"]
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
+
        )
 ;
 
@@ -475,7 +528,7 @@ define AR "passa Abruzzo"
 ;
 
 DEFINE VR "verifica login admin Abruzzo"
-       CONDITION             
+       CONDITION
               obs.event is net.send
               http.url is in login_Regione_post
               http.data['tipo'] is in tipo_abruzzo
@@ -489,14 +542,19 @@ DEFINE VR "verifica login admin Abruzzo"
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["regione"]}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],1})
               add http.answer.cookie["regione"] to set session_Abruzzo ";.*$" ""
        OR
               not exists http.answer.cookie["regione"]
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
+
        )
 ;
 
@@ -524,14 +582,20 @@ DEFINE VR "verifica login admin Campania"
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["regione"]}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],1})
+
               add http.answer.cookie["regione"] to set session_Campania ";.*$" ""
        OR
               not exists http.answer.cookie["regione"]
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
+
        )
 ;
 
@@ -559,14 +623,18 @@ DEFINE VR "verifica login admin Sicilia"
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["regione"]}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],1})
               add http.answer.cookie["regione"] to set session_Sicilia ";.*$" ""
        OR
               not exists http.answer.cookie["regione"]
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
        )
 ;
 
@@ -594,14 +662,19 @@ DEFINE VR "verifica login admin Lombardia"
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["regione"]}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],1})
               add http.answer.cookie["regione"] to set session_Lombardia ";.*$" ""
        OR
               not exists http.answer.cookie["regione"]
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
+
        )
 ;
 
@@ -629,14 +702,18 @@ DEFINE VR "verifica login admin Veneto"
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " è stato completato con successo", http.answer.cookie["regione"]}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],1})
               add http.answer.cookie["regione"] to set session_Veneto ";.*$" ""
        OR
               not exists http.answer.cookie["regione"]
               obs.event is net.recv
               net.sesid is sessione
        ACTION
-              report login {cat {"il login di ", utente, " non è stato completato con successo"}}
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
        )
 ;
 
@@ -666,18 +743,27 @@ define VR "login bruteforce livello5 blocco ip"
               CAT{net.ipsrc":.*$" ""} is in livello4
        ACTION
               add net.ipsrc to set livello5  ":.*$" ""
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip) values ($0,$1)",
+              {http.url,net.ipsrc})
        OR
               http.url is in login_post
               not exists http.answer.cookie["regione"]
               CAT{net.ipsrc":.*$" ""} is in livello4
        ACTION
               add net.ipsrc to set livello5 ":.*$" ""
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip) values ($0,$1)",
+              {http.url,net.ipsrc})
        OR
               http.url is in login_post
               not exists http.answer.cookie["area"]
               CAT{net.ipsrc":.*$" ""} is in  livello4
        ACTION
               add net.ipsrc to set livello5 ":.*$" ""
+              mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip) values ($0,$1)",
+              {http.url,net.ipsrc})
 ;
 
 
