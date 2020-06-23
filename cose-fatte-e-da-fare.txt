@@ -18,6 +18,8 @@ tutte le pagine -> ip, cookie(se c'è),url,data
  login giusto -> ip ,nomeutente,cookie,tipo,url,data
  login sbagliato-> report di ip, nomeutente ,password ,tipo,url,data
 
+quasi fatto, da sistemare il campo url e tipo perchè non salva nulla nel db ed effettuare altri accertamenti
+
 
     3.Notifica all’admin governativo di valori inseriti sopra la soglia OK
         In caso di valori elevati(ad esempio un numero eccessivo di infetti), il sistema memorizza su una

@@ -6,7 +6,7 @@ define urlset url_login_set = { /login };
 define set insieme1 = { };
 define set insieme2 = { };
 
-
+define urlset all = {/*/*/*/*/*/*};
 
 define urlset area_nord = { /regione/Veneto/*/*/*,/regione/Lombardia/*/*/* };
 
@@ -80,33 +80,6 @@ define set pubblica_dati = { };
 define urlset PubblicaDati = { /PubblicaDati };
 
 
-
-define VR "report"
-      CONDITION
-          http.url is "/*/*/*/*/*"
-          not http.url is in login_page
-      ACTION
-          mysql.append("127.0.0.1:3306","vadb","root","root",
-          "insert into report (url,ip,cookie) values ($0,$1,$2)",
-          {http.url,net.ipsrc,http.answer.cookie["admin"]})
-      OR
-        http.url is "/*/*/*/*/*"
-        not http.url is in login_page
-
-      ACTION
-        mysql.append("127.0.0.1:3306","vadb","root","root",
-        "insert into report (url,ip,cookie) values ($0,$1,$2)",
-        {http.url,net.ipsrc,http.answer.cookie["regione"]})
-      OR
-        http.url is "/*/*/*/*/*"
-        not http.url is in login_page
-
-      ACTION
-        mysql.append("127.0.0.1:3306","vadb","root","root",
-        "insert into report (url,ip,cookie) values ($0,$1,$2)",
-        {http.url,net.ipsrc,http.answer.cookie["area"]})
-
-        ;
 
 
 
@@ -329,16 +302,15 @@ DEFINE VR "verifica login admin nazionale"
        VAR
               sessione = net.sesid
               utente = http.data["username"]
-       ACTION
-              report login {http.uri, http.data["username"]}
-       NEXT (
+       NEXT(
               exists http.answer.cookie["admin"]
               obs.event is net.recv
               net.sesid is sessione
+              http.url is in all
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,http.answer.cookie["admin"],utente,http.data["tipo"],1})
+              {http.url,net.ipsrc,http.answer.cookie["admin"],utente,http.data["tipo"],"POSITIVO"})
 
               add http.answer.cookie["admin"] to set session_admin ";.*$" ""
        OR
@@ -348,11 +320,9 @@ DEFINE VR "verifica login admin nazionale"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
-
-       )
-;
-(*accesso login admin*)
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["tipo"],"NEGATIVO"})
+              )
+              ;
 
 
 (***********ACCESSO PER AREA ***************)
@@ -382,7 +352,7 @@ DEFINE VR "verifica login admin areaSud"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,http.answer.cookie["area"],utente,http.data["tipo"],1})
+              {http.url,net.ipsrc,http.answer.cookie["area"],utente,http.data["tipo"],"POSITIVO"})
               add http.answer.cookie["area"] to set session_area_sud ";.*$" ""
        OR
               not exists http.answer.cookie["area"]
@@ -391,7 +361,7 @@ DEFINE VR "verifica login admin areaSud"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["tipo"],"NEGATIVO"})
               )
 ;
 
@@ -421,7 +391,7 @@ DEFINE VR "verifica login admin areaNord"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,http.answer.cookie["area"],utente,http.data["tipo"],1})
+              {http.url,net.ipsrc,http.answer.cookie["area"],utente,http.data["tipo"],"POSITIVO"})
               add http.answer.cookie["area"] to set session_area_nord ";.*$" ""
        OR
               not exists http.answer.cookie["area"]
@@ -430,7 +400,7 @@ DEFINE VR "verifica login admin areaNord"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["tipo"],"NEGATIVO"})
               )
 ;
 
@@ -460,7 +430,7 @@ DEFINE VR "verifica login admin areaCentro"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,http.answer.cookie["area"],utente,http.data["tipo"],1})
+              {http.url,net.ipsrc,http.answer.cookie["area"],utente,http.data["tipo"],"POSITIVO"})
               add http.answer.cookie["area"] to set session_area_centro ";.*$" ""
        OR
               not exists http.answer.cookie["area"]
@@ -469,7 +439,7 @@ DEFINE VR "verifica login admin areaCentro"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["tipo"],"NEGATIVO"})
 
        )
 ;
@@ -504,7 +474,7 @@ DEFINE VR "verifica login admin Lazio"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],1})
+              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],"POSITIVO"})
               add http.answer.cookie["regione"] to set session_Lazio ";.*$" ""
        OR
               not exists http.answer.cookie["regione"]
@@ -513,7 +483,7 @@ DEFINE VR "verifica login admin Lazio"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["tipo"],"NEGATIVO"})
 
        )
 ;
@@ -544,7 +514,7 @@ DEFINE VR "verifica login admin Abruzzo"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],1})
+              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],"POSITIVO"})
               add http.answer.cookie["regione"] to set session_Abruzzo ";.*$" ""
        OR
               not exists http.answer.cookie["regione"]
@@ -553,7 +523,7 @@ DEFINE VR "verifica login admin Abruzzo"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["tipo"],"NEGATIVO"})
 
        )
 ;
@@ -584,7 +554,7 @@ DEFINE VR "verifica login admin Campania"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],1})
+              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],"POSITIVO"})
 
               add http.answer.cookie["regione"] to set session_Campania ";.*$" ""
        OR
@@ -594,7 +564,7 @@ DEFINE VR "verifica login admin Campania"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["tipo"],"NEGATIVO"})
 
        )
 ;
@@ -625,7 +595,7 @@ DEFINE VR "verifica login admin Sicilia"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],1})
+              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],"POSITIVO"})
               add http.answer.cookie["regione"] to set session_Sicilia ";.*$" ""
        OR
               not exists http.answer.cookie["regione"]
@@ -634,7 +604,7 @@ DEFINE VR "verifica login admin Sicilia"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["tipo"],"NEGATIVO"})
        )
 ;
 
@@ -664,7 +634,7 @@ DEFINE VR "verifica login admin Lombardia"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],1})
+              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],"POSITIVO"})
               add http.answer.cookie["regione"] to set session_Lombardia ";.*$" ""
        OR
               not exists http.answer.cookie["regione"]
@@ -673,7 +643,7 @@ DEFINE VR "verifica login admin Lombardia"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["tipo"],"NEGATIVO"})
 
        )
 ;
@@ -704,7 +674,7 @@ DEFINE VR "verifica login admin Veneto"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,cookie,username,tipo,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],1})
+              {http.url,net.ipsrc,http.answer.cookie["regione"],utente,http.data["tipo"],"POSITIVO"})
               add http.answer.cookie["regione"] to set session_Veneto ";.*$" ""
        OR
               not exists http.answer.cookie["regione"]
@@ -713,7 +683,7 @@ DEFINE VR "verifica login admin Veneto"
        ACTION
               mysql.append("127.0.0.1:3306","vadb","root","root",
               "insert into report (url,ip,username,tipo,password,esito) values ($0,$1,$2,$3,$4,$5)",
-              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["password"],0})
+              {http.url,net.ipsrc,utente,http.data["tipo"],http.data["tipo"],"NEGATIVO"})
        )
 ;
 
@@ -851,3 +821,40 @@ define VR "login bruteforce livello1"
 
 ;
 (*protezione bruteforce/*)
+
+
+define VR "report"
+      CONDITION
+          http.url is in all
+          not http.url is in login_page
+          exists http.answer.cookie["admin"]
+      ACTION
+          mysql.append("127.0.0.1:3306","vadb","root","root",
+          "insert into report (url,ip,cookie) values ($0,$1,$2)",
+          {http.url,net.ipsrc,http.answer.cookie["admin"]})
+      OR
+        http.url is in all
+        not http.url is in login_page
+        exists http.answer.cookie["regione"]
+      ACTION
+        mysql.append("127.0.0.1:3306","vadb","root","root",
+        "insert into report (url,ip,cookie) values ($0,$1,$2)",
+        {http.url,net.ipsrc,http.answer.cookie["regione"]})
+      OR
+        http.url is in all
+        not http.url is in login_page
+        exists http.answer.cookie["area"]
+      ACTION
+        mysql.append("127.0.0.1:3306","vadb","root","root",
+        "insert into report (url,ip,cookie) values ($0,$1,$2)",
+        {http.url,net.ipsrc,http.answer.cookie["area"]})
+      OR
+        http.url is in all
+        not http.url is in login_page
+      ACTION
+        mysql.append("127.0.0.1:3306","vadb","root","root",
+        "insert into report (url,ip) values ($0,$1)",
+        {http.url,net.ipsrc})
+        ;
+
+
