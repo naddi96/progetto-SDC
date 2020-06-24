@@ -12,13 +12,7 @@ Validation Authority (V.A.)
     2.Report delle azioni fatte OK
         Report degli accessi e delle azioni compiute dai  vari profili.
 
-2:report su db di: url , ip, cookie, nomeutente (nel login) e campo tipo , 
- quando viene bloccato ip -> ip ,url,data 
-tutte le pagine -> ip, cookie(se c'è),url,data
- login giusto -> ip ,nomeutente,cookie,tipo,url,data
- login sbagliato-> report di ip, nomeutente ,password ,tipo,url,data
-
-quasi fatto, da sistemare il campo url e tipo perchè non salva nulla nel db ed effettuare altri accertamenti
+2:quasi fatto, da sistemare il campo url perchè restituisce una stringa vuota o "/favicon.ico"
 
 
     3.Notifica all’admin governativo di valori inseriti sopra la soglia OK
