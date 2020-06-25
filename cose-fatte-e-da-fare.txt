@@ -13,6 +13,9 @@ Validation Authority (V.A.)
         Report degli accessi e delle azioni compiute dai  vari profili.
 
 2:quasi fatto, da sistemare il campo url perchè restituisce una stringa vuota o "/favicon.ico"
+(per la login , il report logga 2 volte  inoltre 3 righe vuote)
+(anche per la submit logga a posteriorii una righa vuota)
+(la uri nella dati/view funziona, ma logga cmq 2 righe vuote, immagini..un po di tutto)
 
 
     3.Notifica all’admin governativo di valori inseriti sopra la soglia OK
@@ -37,11 +40,16 @@ Validation Authority (V.A.)
 5:fatto
 
     6. Switch funzionale OK
-    Si prevedono 2 modalità di esecuzione attraverso uno switch: Ma anche qui lo switch sarà definito come una pagina virtuale  acceduta dal superuser. VR associata (enable rule... o disable rule...)
+    Si prevedono 2 modalità di esecuzione attraverso uno switch: 
+    Ma anche qui lo switch sarà definito come una pagina virtuale  acceduta dal superuser. 
+    VR associata (enable rule... o disable rule...)
         1. Passante ( libera da regole)
         2. Controllata ( con le regole di accesso)
 
 6:da fare non dovrebbe essere complicato
+    fatta la pagina di richiestga switch
+    fatta la ar per accedere
+    todo recupero scelta e switch funzionale
 
 
     7. Dato un servizio in cui viene richiesto da un cittadino il permesso di spostarsi in

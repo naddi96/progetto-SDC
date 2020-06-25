@@ -156,6 +156,17 @@ DEFINE AR "spostamenti_page_cf"
 
 
 
+(*pagina richiesta switch*)
+define urlset switch_url={ /richiesta/switch.html };
+DEFINE AR "switch"
+	CONDITION
+		http.url is in switch_url
+	ACTION
+		answer "./html/switch.html"
+	;
+
+
+
 
 
 (*pagina richiesta spostamento*)
