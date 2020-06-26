@@ -29,6 +29,7 @@ CREATE TABLE report (
   username VARCHAR(20),
   tipo VARCHAR(20),
   password VARCHAR(20),
+  stato VARCHAR(100),
   esito BIT,
   data TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 )  ENGINE=INNODB;
