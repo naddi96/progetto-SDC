@@ -3,8 +3,8 @@ define set utenti_loggati = { };
 
 define urlset url_login_set = { /login };
 
-define set insieme1 = { };
-define set insieme2 = { };
+define set passante = {"Passante"};
+define set controllata = {"Controllata"};
 
 define urlset all = {/*/*/*/*/*/*};
 
@@ -158,17 +158,65 @@ DEFINE AR "spostamenti_page_cf"
 
 (*pagina richiesta switch*)
 define urlset switch_url={ /richiesta/switch.html };
+define urlset richiesta_switch = { /richiestaSwitch };
+
+define set modalita = { };
+
+
+
 DEFINE AR "switch"
-	CONDITION
-		http.url is in switch_url
-              http.cookie['admin'] is in session_admin
-	ACTION
-		answer "./html/switch.html"
-	;
+  CONDITION
+    http.url is in switch_url
+    http.cookie['admin'] is in session_admin
+  ACTION
+    answer "./html/switch.html"
+    ;
 
 
+DEFINE AR "passa switch passante"
+    CONDITION
+        http.url is in richiesta_switch
+        not CAT{"ok"} is in modalita
+    ACTION
+        answer "switch effettuato(passante)"
+    ;
 
+DEFINE AR "passa switch controllata"
+    CONDITION
+        http.url is in richiesta_switch
+        CAT{"ok"} is in modalita
+    ACTION
+        answer "switch effettuato(controllata)"
+    ;
 
+DEFINE VR "richiestaSwitch"
+    CONDITION
+        http.url is in richiesta_switch
+        http.data["switch"] is in passante
+    ACTION
+        add CAT{"ok"} to set modalita
+    OR
+        http.url is in richiesta_switch
+        http.data["switch"] is in controllata
+    ACTION
+        del CAT{"ok"} from set modalita
+     ;
+
+DEFINE AR "accesso free"
+   CONDITION
+       http.url is in all
+       CAT{"ok"} is in modalita
+   ACTION
+       tcp.redirect "127.0.0.1:5001"
+   ;
+
+DEFINE AR "accesso not free"
+   CONDITION
+       http.url is in all
+       not CAT{"ok"} is in modalita
+   ACTION
+       tcp.redirect "127.0.0.1:5000"
+    ;
 
 (*pagina richiesta spostamento*)
 define urlset sposta_url={ /richiesta/richiestaSpostamento.html };
@@ -183,25 +231,26 @@ define urlset sposta_post_url = { /richiestaSpostamento };
 DEFINE AR "richiesta spostamento SI"
 	CONDITION
 		http.url is in sposta_post_url
-              not http.query["regione1"] is in regioni_interdette
-              not http.query["regione2"] is in regioni_interdette
+    not http.query["regione1"] is in regioni_interdette
+    not http.query["regione2"] is in regioni_interdette
 	ACTION
 		answer "./html/spostamentoAutorizzato.html"
 	;
+
 DEFINE AR "richiesta spostamento NO regione1"
 	CONDITION
 		http.url is in sposta_post_url
-              http.query["regione1"] is in regioni_interdette
+    http.query["regione1"] is in regioni_interdette
 	ACTION
+    answer "./html/spostamentoNonAutorizzato.html"
+  ;
 
-		answer "./html/spostamentoNonAutorizzato.html"
-       ;
 DEFINE AR "richiesta spostamento NO regione2"
-       CONDITION
-              http.url is in sposta_post_url
-              http.query["regione2"] is in regioni_interdette
-	ACTION
-		answer "./html/spostamentoNonAutorizzato.html"
+    CONDITION
+          http.url is in sposta_post_url
+          http.query["regione2"] is in regioni_interdette
+	  ACTION
+		      answer "./html/spostamentoNonAutorizzato.html"
        ;
 
 
@@ -863,7 +912,7 @@ define VR "report"
         http.url is in all
         not http.url is in login_page
         not http.url is in prova
-        
+
       ACTION
         mysql.append("127.0.0.1:3306","vadb","root","root",
         "insert into report (url,ip) values ($0,$1)",

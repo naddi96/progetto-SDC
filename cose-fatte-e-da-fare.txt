@@ -46,10 +46,7 @@ Validation Authority (V.A.)
         1. Passante ( libera da regole)
         2. Controllata ( con le regole di accesso)
 
-6:da fare non dovrebbe essere complicato
-    fatta la pagina di richiestga switch
-    fatta la ar per accedere
-    todo recupero scelta e switch funzionale
+6: fatto
 
 
     7. Dato un servizio in cui viene richiesto da un cittadino il permesso di spostarsi in
