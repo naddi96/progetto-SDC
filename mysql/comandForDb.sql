@@ -1,6 +1,3 @@
-mysql -u root -p
-
-
 CREATE DATABASE vadb;
 use vadb;
 

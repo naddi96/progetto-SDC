@@ -1,0 +1,1 @@
+docker run -d --name=regioniser --network=host regioniserver
