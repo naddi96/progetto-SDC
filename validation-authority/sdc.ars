@@ -6,7 +6,7 @@ define urlset url_login_set = { /login };
 define set passante = {"Passante"};
 define set controllata = {"Controllata"};
 
-define urlset all = {/*/*/*/*/*/*};
+define urlset all = {/*/*/*/*/*/*/*/*};
 
 define urlset area_nord = { /regione/Veneto/*/*/*,/regione/Lombardia/*/*/* };
 
@@ -112,6 +112,29 @@ define AR "blocca ip"
 
 
 
+define urlset swi = { /regione/*/*/*/*/* };
+DEFINE AR "accesso free"
+   CONDITION
+       not http.url is in login_page
+       http.url is in swi
+       CAT{"ok"} is in modalita
+   ACTION
+       tcp.redirect "127.0.0.1:5001"
+   ;
+
+(*
+DEFINE AR "accesso not free"
+   CONDITION
+       http.url is in all
+       not CAT{"ok"} is in modalita
+   ACTION
+       tcp.redirect "127.0.0.1:5000"
+    ;
+
+*)
+
+
+
 (*pagina visione tuttu spostamenti per admin*)
 define urlset spostamenti_html={ /spostamenti/spostamenti.html };
 DEFINE AR "visione spostamenti html"
@@ -192,11 +215,13 @@ DEFINE AR "passa switch controllata"
 DEFINE VR "richiestaSwitch"
     CONDITION
         http.url is in richiesta_switch
+        http.cookie['admin'] is in session_admin
         http.data["switch"] is in passante
     ACTION
         add CAT{"ok"} to set modalita
     OR
         http.url is in richiesta_switch
+        http.cookie['admin'] is in session_admin
         http.data["switch"] is in controllata
     ACTION
         del CAT{"ok"} from set modalita
@@ -239,24 +264,6 @@ DEFINE AR "richiesta spostamento NO regione2"
        ;
 
 
-(*
-DEFINE AR "accesso free"
-   CONDITION
-       http.url is in all
-       CAT{"ok"} is in modalita
-   ACTION
-       tcp.redirect "127.0.0.1:5001"
-   ;
-
-DEFINE AR "accesso not free"
-   CONDITION
-       http.url is in all
-       not CAT{"ok"} is in modalita
-   ACTION
-       tcp.redirect "127.0.0.1:5000"
-    ;
-
-*)
 
 DEFINE VR "memorizza richiesta spostatamento"
 	CONDITION
