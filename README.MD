@@ -80,3 +80,50 @@ I dati saranno disponibili sulle pagine web che interpretano il csv, pertanto pe
 Template Html 
 Form in python vs node.js
 Ars
+
+
+
+### endpoint
+#### pagine raggiungibili senza autenticazione
+http://127.0.0.1:8888/login/loginRegione/login.html
+http://127.0.0.1:8888/login/loginArea/login.html
+http://127.0.0.1:8888/login/loginAdmin/login.html
+http://127.0.0.1:8888/richiesta/richiestaSpostamento.html
+http://127.0.0.1:8888//spostamenti/spostamentiCodiceFiscale.html
+
+
+#### pagine raggiungibili dopo autenticazione (admin nazionale)
+http://127.0.0.1:8888/regione/Campania/inserimento/insert.html
+http://127.0.0.1:8888/regione/Abruzzo/inserimento/insert.html
+http://127.0.0.1:8888/regione/Sicilia/inserimento/insert.html
+http://127.0.0.1:8888/regione/Lazio/inserimento/insert.html
+http://127.0.0.1:8888/regione/Lombardia/inserimento/insert.html
+http://127.0.0.1:8888/regione/Veneto/inserimento/insert.html
+
+http://127.0.0.1:8888/regione/Campania/dati/view.html
+http://127.0.0.1:8888/regione/Abruzzo/dati/view.html
+http://127.0.0.1:8888/regione/Sicilia/dati/view.html
+http://127.0.0.1:8888/regione/Lazio/dati/view.html
+http://127.0.0.1:8888/regione/Lombardia/dati/view.html
+http://127.0.0.1:8888/regione/Veneto/dati/view.html
+
+visione tutti gli spostamenti
+http://127.0.0.1:8888/spostamenti/spostamenti.html
+
+publicazione dei dati per un'ora
+http://127.0.0.1:8888/PubblicaDati 
+
+
+http://127.0.0.1:8888/richiesta/switch.html
+
+visione di tutti gli allert (solo admin nazionale)
+http://127.0.0.1:8888//regione/alert.html
+
+
+
+
+
+
+
+
+

@@ -202,21 +202,6 @@ DEFINE VR "richiestaSwitch"
         del CAT{"ok"} from set modalita
      ;
 
-DEFINE AR "accesso free"
-   CONDITION
-       http.url is in all
-       CAT{"ok"} is in modalita
-   ACTION
-       tcp.redirect "127.0.0.1:5001"
-   ;
-
-DEFINE AR "accesso not free"
-   CONDITION
-       http.url is in all
-       not CAT{"ok"} is in modalita
-   ACTION
-       tcp.redirect "127.0.0.1:5000"
-    ;
 
 (*pagina richiesta spostamento*)
 define urlset sposta_url={ /richiesta/richiestaSpostamento.html };
@@ -254,7 +239,24 @@ DEFINE AR "richiesta spostamento NO regione2"
        ;
 
 
+(*
+DEFINE AR "accesso free"
+   CONDITION
+       http.url is in all
+       CAT{"ok"} is in modalita
+   ACTION
+       tcp.redirect "127.0.0.1:5001"
+   ;
 
+DEFINE AR "accesso not free"
+   CONDITION
+       http.url is in all
+       not CAT{"ok"} is in modalita
+   ACTION
+       tcp.redirect "127.0.0.1:5000"
+    ;
+
+*)
 
 DEFINE VR "memorizza richiesta spostatamento"
 	CONDITION
