@@ -500,8 +500,6 @@ DEFINE VR "verifica login admin areaCentro"
               url= http.uri
               sessione = net.sesid
               utente = http.data["username"]
-       ACTION
-              report login {http.uri, http.data["username"]}
        NEXT (
               exists http.answer.cookie["area"]
               obs.event is net.recv
