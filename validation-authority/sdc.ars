@@ -101,6 +101,14 @@ define AR "passa immagini"
              tcp.redirect "127.0.0.1:5001"
 ;
 
+define urlset img = { /regione/style/* };
+define AR "passa css"
+       CONDITION
+              http.url is in img
+       ACTION
+             tcp.redirect "127.0.0.1:5001"
+;
+
 
 define AR "blocca ip"
        CONDITION
