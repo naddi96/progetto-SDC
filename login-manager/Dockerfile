@@ -3,8 +3,8 @@ RUN mkdir -p /webserver
 WORKDIR /webserver
 COPY ./requirements.txt .
 COPY ./login.py .
-COPY ./img .
-COPY ./login .
+COPY ./img ./img
+COPY ./login ./login
 COPY ./admin.json .
 COPY ./admin-area.json .
 COPY ./admin-regione.json .
