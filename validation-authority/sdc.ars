@@ -225,6 +225,7 @@ DEFINE VR "richiestaSwitch"
         http.url is in richiesta_switch
         http.cookie['admin'] is in session_admin
         http.data["switch"] is in passante
+        not CAT{"ok"} is in modalita
     ACTION
         add CAT{"ok"} to set modalita
     OR
@@ -786,18 +787,18 @@ define VR "login bruteforce livello5 blocco ip"
               CAT{net.ipsrc":.*$" ""} is in livello4
        ACTION
               add net.ipsrc to set livello5  ":.*$" ""
-              mysql.append("127.0.0.1:3306","vadb","root","root",
-              "insert into report (url,ip) values ($0,$1)",
-              {http.uri,net.ipsrc})
+                     mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,stato) values ($0,$1,$2)",
+              {http.uri,net.ipsrc,"IP BLOCCATO"})
        OR
               http.url is in login_post
               not exists http.answer.cookie["regione"]
               CAT{net.ipsrc":.*$" ""} is in livello4
        ACTION
               add net.ipsrc to set livello5 ":.*$" ""
-              mysql.append("127.0.0.1:3306","vadb","root","root",
-              "insert into report (url,ip) values ($0,$1)",
-              {http.uri,net.ipsrc})
+                     mysql.append("127.0.0.1:3306","vadb","root","root",
+              "insert into report (url,ip,stato) values ($0,$1,$2)",
+              {http.uri,net.ipsrc,"IP BLOCCATO"})
        OR
               http.url is in login_post
               not exists http.answer.cookie["area"]
